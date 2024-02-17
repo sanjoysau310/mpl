@@ -29,6 +29,11 @@ export const Navbar = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/profile" className="nav-link scrollto">
+            Profile
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/adminHome" className="nav-link scrollto">
             Admin
           </NavLink>

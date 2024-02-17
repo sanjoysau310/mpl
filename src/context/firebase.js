@@ -65,10 +65,13 @@ export const FirebaseProvider = (props) => {
     onAuthStateChanged(firebaseAuth, (user) => {
       user ? setUser(user) : setUser("");
     });
+    onValue(refDB(firebaseDB, `users/${user.uid}`), (res) =>
+      setProfile(res.val())
+    );
   }, []);
 
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(firebaseAuth, email, password);
+  const createUser = async(email, password) => {
+    return await createUserWithEmailAndPassword(firebaseAuth, email, password);
   };
   const addUserToStore = async (uid, data) => {
     return await addDoc(collection(fireStore, "users"), {
@@ -104,13 +107,14 @@ export const FirebaseProvider = (props) => {
   const getUserByIDFromDB = async (uid) => {
     return await get(child(refDB(firebaseDB), `users/${uid}`));
 
-    //await onValue(refDB(firebaseDB, `users/${user.uid}`), (res) => {
-    //   setProfile(res.val());
-    // });
+    // const data = await onValue(refDB(firebaseDB, `users/${user.uid}`), (res) =>
+    //   res.val()
+    // );
+    // return data;
   };
 
-  const updateUser = (data, name, phone) => {
-    return updateProfile(data, {
+  const updateUser = async(data, name, phone) => {
+    return await updateProfile(data, {
       displayName: name,
       phoneNumber: phone,
     });
@@ -120,7 +124,7 @@ export const FirebaseProvider = (props) => {
     return signInWithPopup(firebaseAuth, googleProvider);
   };
 
-  const fetchUser = profile;
+  //const fetchUser = profile;
 
   const userProfile = profile;
 
@@ -182,7 +186,7 @@ export const FirebaseProvider = (props) => {
         isLoggedIn,
         logoutUser,
         getUserByIDFromDB,
-        fetchUser,
+        //fetchUser,
         userProfile,
         uploadImageToStoregae,
         getAllUsers,

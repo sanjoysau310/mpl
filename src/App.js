@@ -22,6 +22,8 @@ import { Sponsors } from "./components/pages/sponsors/sponsors";
 import { Admin } from "./components/pages/home/admin/admin";
 import { UserLogin } from "./components/pages/login/userLogin";
 import { UserRegister } from "./components/pages/register/userRegister";
+import { UserPicture } from "./components/pages/players/player/userPicture";
+import { UserProfileHome } from "./components/pages/players/player/user/userProfileHome";
 
 function App() {
   const firebase = useFirebase();
@@ -64,6 +66,10 @@ function App() {
         {
           path: "players",
           element: <PlayersList />,
+        },
+        {
+          path: "profile",
+          element: <UserProfileHome />,
         },
         {
           path: "sponsors",

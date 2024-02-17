@@ -18,20 +18,25 @@ export const UserLogin = () => {
     password: "",
     phone: "",
   });
-  const [profile, setProfile] = useState("");
+  const { userProfile, setUserProfile } = useFirebase();
   const [passwordType, setPasswordType] = useState("password");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   // useEffect(() => {
-  //   if (firebase) {
-  //     firebase.userProfile.role === "admin"
-  //       ? navigate("/")
-  //       : firebase.userProfile.role === "admin"
-  //       ? navigate("/playerHome")
-  //       : navigate("/login");
-  //   }
-  // }, []);
+  //   setUserProfile("");
+  //   console.log(userProfile);
+  //   if (
+  //     userProfile !== null ||
+  //     userProfile !== undefined ||
+  //     userProfile != ""
+  //   ) {
+  //     console.log("userProfile");
+  //     if (userProfile.role === "user")
+  //       navigate(`/playerHome/${userProfile.fid}`);
+  //   } else if (userProfile.role === "admin") navigate("/admin");
+  //   else navigate("/login");
+  // }, [userProfile]);
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -47,21 +52,46 @@ export const UserLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    firebase.loginUser(user.email, user.password).then((authResponse) => {
-      firebase.getUserByIDFromDB(authResponse.user.uid).then((dbResponse) => {
-        console.log(dbResponse);
-        dbResponse === null ? setLoading(true) : setLoading(false);
+    setLoading(true);
+    const authResponse = await firebase.loginUser(user.email, user.password);
 
-        const { role, fid } = dbResponse.val();
-        //setProfile(dbResponse.val());
+    console.log(authResponse);
+    const dbResponse = await firebase.getUserByIDFromDB(authResponse.user.uid);
 
-        role === "admin"
-          ? navigate("/admin")
-          : role === "user"
-          ? navigate(`/playerHome/${fid}`)
-          : navigate("/login");
-      });
-    });
+    console.log(dbResponse.val());
+    dbResponse.val() ? setLoading(false) : setLoading(true);
+    //setUserProfile(dbResponse.val());
+    navigate(`/playerHome/${dbResponse.val().fid}`);
+    // dbResponse.val().role === "user"
+    //   ? navigate(`/playerHome/${dbResponse.val().fid}`)
+    //   : navigate("/admin");
+
+    // await firebase
+    //   .loginUser(user.email, user.password)
+    //   .then(async (authResponse) => {
+    //     await firebase
+    //       .getUserByIDFromDB(authResponse.user.uid)
+    //       .then((dbResponse) => {
+    //         console.log(dbResponse);
+    //         setLoading(true);
+
+    //         const { role, fid } = dbResponse.val();
+
+    //         if (role !== null) {
+    //           setLoading(true);
+    //           if (role === "user") {
+    //             console.log(role);
+    //             navigate(`/playerHome/${fid}`);
+    //           } else if (role === "admin") {
+    //             console.log(role);
+    //             navigate("/admin");
+    //           } else {
+    //             console.log(role);
+    //             navigate("/login");
+    //           }
+    //         }
+    //       });
+    //   });
 
     // if (firebase) {
     //       firebase.userProfile.role === "admin"
