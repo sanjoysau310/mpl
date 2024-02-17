@@ -1,0 +1,553 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+    background: #fff;
+    color: #2f3138;
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    color: #f82249;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+a:hover,
+a:active,
+a:focus {
+    color: #f8234a;
+    outline: none;
+    text-decoration: none;
+}
+
+p {
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+    color: #0e1b4d;
+}
+
+.main-page {
+    margin-top: 70px;
+}
+
+/* Prelaoder */
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    /* background: #fff url("../img/preloader.svg") no-repeat center center; */
+}
+
+/*--------------------------------------------------------------
+  # Back to top button
+  --------------------------------------------------------------*/
+.back-to-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 15px;
+    bottom: 15px;
+    z-index: 996;
+    background: #f82249;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    transition: all 0.4s;
+}
+
+.back-to-top i {
+    font-size: 28px;
+    color: #fff;
+    line-height: 0;
+}
+
+.back-to-top:hover {
+    background: #f94a6a;
+    color: #fff;
+}
+
+.back-to-top.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Sections Header
+  --------------------------------*/
+.section-header {
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.section-header::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 5px;
+    background: #f82249;
+    bottom: 0;
+    left: calc(50% - 25px);
+}
+
+.section-header h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #9195a2;
+}
+
+.section-with-bg {
+    background-color: #f6f7fd;
+}
+
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------
+  # Venue Section
+  --------------------------------------------------------------*/
+#venue {
+    padding: 60px 0;
+}
+
+#venue .container-fluid {
+    margin-bottom: 3px;
+}
+
+#venue .venue-map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+}
+
+#venue .venue-info {
+    /* background: url("../img/venue-info-bg.jpg") top center no-repeat; */
+    background-size: cover;
+    position: relative;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#venue .venue-info:before {
+    content: "";
+    background: rgba(13, 20, 41, 0.8);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#venue .venue-info h3 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+}
+
+@media (max-width: 574px) {
+    #venue .venue-info h3 {
+        font-size: 24px;
+    }
+}
+
+#venue .venue-info p {
+    color: #fff;
+    margin-bottom: 0;
+}
+
+#venue .venue-gallery-container {
+    padding-right: 12px;
+}
+
+#venue .venue-gallery {
+    overflow: hidden;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+}
+
+#venue .venue-gallery img {
+    transition: all ease-in-out 0.4s;
+}
+
+#venue .venue-gallery:hover img {
+    transform: scale(1.1);
+}
+
+/*--------------------------------------------------------------
+  # Hotels Section
+  --------------------------------------------------------------*/
+#hotels {
+    padding: 60px 0;
+}
+
+#hotels .hotel {
+    border: 1px solid #e0e5fa;
+    background: #fff;
+    margin-bottom: 30px;
+}
+
+#hotels .hotel:hover .hotel-img img {
+    transform: scale(1.1);
+}
+
+#hotels .hotel-img {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+#hotels .hotel-img img {
+    transition: 0.3s ease-in-out;
+}
+
+#hotels h3 {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 5px;
+    padding: 0 20px;
+}
+
+#hotels a {
+    color: #152b79;
+}
+
+#hotels a:hover {
+    color: #f82249;
+}
+
+#hotels .stars {
+    padding: 0 20px;
+    margin-bottom: 5px;
+}
+
+#hotels .stars i {
+    color: rgb(255, 195, 29);
+}
+
+#hotels p {
+    padding: 0 20px;
+    margin-bottom: 20px;
+    color: #060c22;
+    font-style: italic;
+    font-size: 15px;
+}
+
+/*--------------------------------------------------------------
+  # Gallery Section
+  --------------------------------------------------------------*/
+#gallery {
+    padding: 60px;
+    overflow: hidden;
+}
+
+#gallery .swiper-pagination {
+    margin-top: 20px;
+    position: relative;
+}
+
+#gallery .swiper-pagination .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    opacity: 1;
+    border: 1px solid #f82249;
+}
+
+#gallery .swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #f82249;
+}
+
+#gallery .swiper-slide-active {
+    text-align: center;
+}
+
+@media (min-width: 992px) {
+    #gallery .swiper-wrapper {
+        padding: 40px 0;
+    }
+
+    #gallery .swiper-slide-active {
+        border: 5px solid #f82249;
+        padding: 4px;
+        background: #fff;
+        z-index: 1;
+        transform: scale(1.15);
+        margin-top: 6px;
+    }
+}
+
+/*--------------------------------------------------------------
+  # Sponsors Section
+  --------------------------------------------------------------*/
+#supporters {
+    padding: 60px 0;
+}
+
+#supporters .supporters-wrap {
+    border-top: 1px solid #e0e5fa;
+    border-left: 1px solid #e0e5fa;
+    margin-bottom: 30px;
+}
+
+#supporters .supporter-logo {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #e0e5fa;
+    border-bottom: 1px solid #e0e5fa;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.5);
+    height: 160px;
+}
+
+#supporters .supporter-logo:hover img {
+    transform: scale(1.2);
+}
+
+#supporters img {
+    transition: all 0.4s ease-in-out;
+}
+
+/*--------------------------------------------------------------
+  # F.A.Q Section
+  --------------------------------------------------------------*/
+#faq {
+    padding: 60px 0;
+}
+
+#faq .faq-list {
+    padding: 0;
+    list-style: none;
+}
+
+#faq .faq-list li {
+    border-bottom: 1px solid #e9eaed;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+#faq .faq-list .question {
+    display: block;
+    position: relative;
+    font-family: #f82249;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    padding-left: 25px;
+    cursor: pointer;
+    color: #e0072f;
+    transition: 0.3s;
+}
+
+#faq .faq-list i {
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+#faq .faq-list p {
+    margin-bottom: 0;
+    padding: 10px 0 0 25px;
+}
+
+#faq .faq-list .icon-show {
+    display: none;
+}
+
+#faq .faq-list .collapsed {
+    color: black;
+}
+
+#faq .faq-list .collapsed:hover {
+    color: #f82249;
+}
+
+#faq .faq-list .collapsed .icon-show {
+    display: inline-block;
+    transition: 0.6s;
+}
+
+#faq .faq-list .collapsed .icon-close {
+    display: none;
+    transition: 0.6s;
+}
+
+/*--------------------------------------------------------------
+  # Subscribe Section
+  --------------------------------------------------------------*/
+#subscribe {
+    padding: 60px;
+    /* background: url("../img/subscribe-bg.jpg") center center no-repeat; */
+    background-size: cover;
+    overflow: hidden;
+    position: relative;
+}
+
+#subscribe:before {
+    content: "";
+    background: rgba(6, 12, 34, 0.6);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+@media (min-width: 1024px) {
+    #subscribe {
+        background-attachment: fixed;
+    }
+}
+
+#subscribe .section-header h2,
+#subscribe p {
+    color: #fff;
+}
+
+#subscribe input {
+    background: #fff;
+    color: #060c22;
+    border: 0;
+    outline: none;
+    margin: 0;
+    padding: 9px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+}
+
+@media (min-width: 767px) {
+    #subscribe input {
+        min-width: 400px;
+    }
+}
+
+#subscribe button {
+    border: 0;
+    padding: 9px 25px;
+    cursor: pointer;
+    background: #f82249;
+    color: #fff;
+    transition: all 0.3s ease;
+    outline: none;
+    font-size: 14px;
+    border-radius: 50px;
+}
+
+#subscribe button:hover {
+    background: #e0072f;
+}
+
+@media (max-width: 460px) {
+    #subscribe button {
+        margin-top: 10px;
+    }
+}
+
+/*--------------------------------------------------------------
+  # Buy Tickets Section
+  --------------------------------------------------------------*/
+#buy-tickets {
+    padding: 60px 0;
+}
+
+#buy-tickets .card {
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 10px 25px 0 rgba(6, 12, 34, 0.1);
+}
+
+#buy-tickets .card:hover {
+    box-shadow: 0 10px 35px 0 rgba(6, 12, 34, 0.2);
+}
+
+#buy-tickets .card hr {
+    margin: 25px 0;
+}
+
+#buy-tickets .card .card-title {
+    margin: 10px 0;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+#buy-tickets .card .card-price {
+    font-size: 48px;
+    margin: 0;
+}
+
+#buy-tickets .card ul li {
+    margin-bottom: 20px;
+}
+
+#buy-tickets .card .text-muted {
+    opacity: 0.7;
+}
+
+#buy-tickets .card .btn {
+    font-size: 15px;
+    border-radius: 50px;
+    padding: 10px 40px;
+    transition: all 0.2s;
+    background-color: #f82249;
+    border: 0;
+    color: #fff;
+}
+
+#buy-tickets .card .btn:hover {
+    background-color: #e0072f;
+}
+
+#buy-tickets #buy-ticket-modal input,
+#buy-tickets #buy-ticket-modal select {
+    border-radius: 0;
+}
+
+#buy-tickets #buy-ticket-modal .btn {
+    font-size: 15px;
+    border-radius: 50px;
+    padding: 10px 40px;
+    transition: all 0.2s;
+    background-color: #f82249;
+    border: 0;
+    color: #fff;
+}
+
+#buy-tickets #buy-ticket-modal .btn:hover {
+    background-color: #e0072f;
+}

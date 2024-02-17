@@ -1,0 +1,23 @@
+.login-btn {
+    background: #f82249;
+    border: 0;
+    padding: 10px 40px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 0.8rem;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: #e0072f;
+}
+
+.link>a:hover {
+    color: #f82249;
+}
+
+@media (max-width: 768px) {
+    .card>div>div {
+        display: none
+    }
+}

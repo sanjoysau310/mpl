@@ -1,0 +1,127 @@
+/*--------------------------------------------------------------
+  # user Section
+  --------------------------------------------------------------*/
+#user {
+    padding: 60px 0 30px 0;
+}
+
+#user .speaker {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+#user .speaker .details {
+    background: rgba(6, 12, 34, 0.76);
+    position: absolute;
+    left: 0;
+    bottom: -40px;
+    right: 0;
+    text-align: center;
+    padding-top: 10px;
+    transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#user .speaker .details h3 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+#user .speaker .details p {
+    color: #fff;
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+#user .speaker .details .social {
+    height: 40px;
+}
+
+#user .speaker .details .social i {
+    line-height: 0;
+    margin: 0 2px;
+}
+
+#user .speaker .details a {
+    color: #fff;
+}
+
+#user .speaker .details a:hover {
+    color: #f82249;
+}
+
+#user .speaker:hover .details {
+    bottom: 0;
+}
+
+#user-details {
+    padding: 60px 0;
+}
+
+#user-details .details h2 {
+    color: #112363;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#user-details .details .social {
+    margin-bottom: 15px;
+}
+
+#user-details .details .social a {
+    background: #e9edfb;
+    color: #112363;
+    line-height: 1;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-details .details .social a:hover {
+    background: #f82249;
+    color: #fff;
+}
+
+#user-details .details .social a i {
+    font-size: 16px;
+    line-height: 0;
+}
+
+#user-details .details p {
+    color: #112363;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.image-upload>input {
+    display: none;
+}
+
+.image-upload>label i {
+    color: #f82249;
+    text-align: center;
+    margin-left: 10rem;
+}
+
+.image-upload-btn {
+    background: #f82249;
+    border: 0;
+    padding: 5px 10px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.image-upload-btn:hover {
+    background: #e0072f;
+}
