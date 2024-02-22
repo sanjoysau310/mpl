@@ -22,15 +22,14 @@ import { Sponsors } from "./components/pages/sponsors/sponsors";
 import { Admin } from "./components/pages/home/admin/admin";
 import { UserLogin } from "./components/pages/login/userLogin";
 import { UserRegister } from "./components/pages/register/userRegister";
-import { UserPicture } from "./components/pages/players/player/userPicture";
-import { UserProfileHome } from "./components/pages/players/player/user/userProfileHome";
+import { UserProfileHome } from "./components/pages/home/user/userProfileHome";
 
 function App() {
   const firebase = useFirebase();
   const [adminAccess, setAdminAccess] = useState(false);
   const [userAccess, setUserAccess] = useState(false);
   //console.log(firebase);
-
+  //console.log(firebase.isLoggedIn);
   useEffect(() => {
     if (firebase != null) {
       if (firebase.userProfile.role === "admin") setAdminAccess(true);
@@ -102,17 +101,14 @@ function App() {
         // },
         // protected routes
         // { path: "playerHome", element: userAccess ? <UserHome /> : <Login /> },
-        { path: "playerHome/:id", element: <UserHome /> },
+        // { path: "playerHome/:id", element: <UserHome /> },
+        { path: "playerHome/:id", element: <UserProfileHome /> },
         { path: "adminHome", element: <Admin /> },
         //admin routes
         // {
         //   path: "",
         //   element: adminAccess ? <LandingPage /> : <Login />,
         // },
-        {
-          path: "",
-          element: <LandingPage />,
-        },
       ],
     },
   ]);

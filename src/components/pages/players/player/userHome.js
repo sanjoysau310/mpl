@@ -15,6 +15,8 @@ export const UserHome = () => {
   const [pImage, setpImage] = useState("");
   const [profile, setProfile] = useState("");
 
+  //console.log(firebase.isLoggedIn);
+
   useEffect(() => {
     firebase.getUserByID(params.id).then((res) => setProfile(res.data()));
   }, []);

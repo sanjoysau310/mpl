@@ -1,14 +1,12 @@
-.image-upload>input {
+input {
     display: none;
 }
 
-.image-upload>label i {
+label i {
     color: #f82249;
-    text-align: center;
-    margin-left: 10rem;
 }
 
-.image-upload button[type=submit] {
+button[type=submit] {
     background: #f82249;
     border: 0;
     padding: 5px 10px;
@@ -16,9 +14,8 @@
     transition: 0.4s;
     border-radius: 50px;
     cursor: pointer;
-    margin-left: 8rem;
 }
 
-.image-upload button[type=submit]:hover {
+button[type=submit]:hover {
     background: #e0072f;
 }

@@ -10,6 +10,7 @@ import {
 import { Navbar } from "../navbar/navbar";
 
 import mplLogo from "../../../assets/images/logos/mpl.png";
+import OffcanvasExample from "../navbar/mplNav";
 
 export const Header = () => {
   return (
@@ -47,6 +48,7 @@ export const Header = () => {
           </NavLink>
         </div>
         <Navbar />
+        {/* <OffcanvasExample /> */}
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-export const PlayerAge = ({ dob }) => {
+export const playerAge = ({ dob }) => {
   var birthday = new Date(dob);
   var ageDifMs = Date.now() - birthday.getTime();
   var ageDate = new Date(ageDifMs);

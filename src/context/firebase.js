@@ -1,66 +1,53 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
+
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
   signOut,
   signInWithEmailAndPassword,
   signInWithPopup,
   onAuthStateChanged,
-  GoogleAuthProvider,
 } from "firebase/auth";
-import {
-  child,
-  get,
-  getDatabase,
-  onValue,
-  ref as refDB,
-  set,
-} from "firebase/database";
+import { child, get, onValue, ref as refDB, set } from "firebase/database";
 import {
   addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
-  getFirestore,
   query,
   updateDoc,
   where,
 } from "firebase/firestore";
 import {
   getDownloadURL,
-  getStorage,
   ref as refStorage,
   uploadBytes,
 } from "firebase/storage";
+import {
+  fireStore,
+  firebaseAuth,
+  firebaseDB,
+  googleProvider,
+  storage,
+} from "../firebase/firebaseConfig";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBT0RQN78s4nQesU-Zc9EYc3ttAKzYyP-8",
-  authDomain: "mpl-2k24.firebaseapp.com",
-  projectId: "mpl-2k24",
-  storageBucket: "mpl-2k24.appspot.com",
-  messagingSenderId: "380968441362",
-  appId: "1:380968441362:web:e997d4014f8a8754b26acb",
-  databaseURL: "https://mpl-2k24-default-rtdb.firebaseio.com",
+const initialState = {
+  isAuthenticated: false,
+  user: null,
+  token: null,
 };
-
-const firebaseApp = initializeApp(firebaseConfig);
-const firebaseAuth = getAuth(firebaseApp);
-const googleProvider = new GoogleAuthProvider();
-const firebaseDB = getDatabase(firebaseApp);
-const fireStore = getFirestore(firebaseApp);
-const storage = getStorage(firebaseApp);
 
 const FirebaseContext = createContext(null);
 
 export const useFirebase = () => useContext(FirebaseContext);
 
 export const FirebaseProvider = (props) => {
+  const [store, setStore] = useState(initialState);
+
   const [user, setUser] = useState("");
   const [profile, setProfile] = useState("");
-  const [profiles, setProfiles] = useState("");
+
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       user ? setUser(user) : setUser("");
@@ -70,7 +57,7 @@ export const FirebaseProvider = (props) => {
     );
   }, []);
 
-  const createUser = async(email, password) => {
+  const createUser = async (email, password) => {
     return await createUserWithEmailAndPassword(firebaseAuth, email, password);
   };
   const addUserToStore = async (uid, data) => {
@@ -113,7 +100,7 @@ export const FirebaseProvider = (props) => {
     // return data;
   };
 
-  const updateUser = async(data, name, phone) => {
+  const updateUser = async (data, name, phone) => {
     return await updateProfile(data, {
       displayName: name,
       phoneNumber: phone,

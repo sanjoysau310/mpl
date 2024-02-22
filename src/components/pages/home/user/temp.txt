@@ -1,0 +1,39 @@
+{/* Bordered Tabs */}
+<ul className="nav nav-tabs nav-tabs-bordered">
+    <li className="nav-item">
+        <button className={ content==="Overview" ? "nav-link active" : "nav-link" } data-bs-toggle="tab"
+            data-bs-target="#profile-overview" onClick={()=> setContent("Overview")}>
+            Overview
+        </button>
+    </li>
+    <li className="nav-item">
+        <button className={ content==="Edit Profile" ? "nav-link active" : "nav-link" } data-bs-toggle="tab"
+            data-bs-target="#profile-edit" onClick={()=> setContent("Edit Profile")}>
+            Edit Profile
+        </button>
+    </li>
+    <li className="nav-item">
+        <button className={ content==="Settings" ? "nav-link active" : "nav-link" } data-bs-toggle="tab"
+            data-bs-target="#profile-settings" onClick={()=> setContent("Settings")}>
+            Settings
+        </button>
+    </li>
+    <li className="nav-item">
+        <button className={ content==="Change Password" ? "nav-link active" : "nav-link" } data-bs-toggle="tab"
+            data-bs-target="#profile-change-password" onClick={()=> setContent("Change Password")}>
+            Change Password
+        </button>
+    </li>
+</ul>
+<div className="tab-content pt-2">
+    {content === "Edit Profile" ? (
+    <UserProfileEdit />
+    ) : content === "Settings" ? (
+    <UserProfileSettings />
+    ) : content === "Change Password" ? (
+    <UserProfileChangePassword />
+    ) : (
+    <UserProfileOverview />
+    )}
+</div>
+{/* End Bordered Tabs */}

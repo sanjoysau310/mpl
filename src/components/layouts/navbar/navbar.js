@@ -4,7 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../../context/firebase";
 export const Navbar = () => {
   const firebase = useFirebase();
-  //console.log(firebase);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    firebase.logoutUser();
+    navigate("/login", { replace: true });
+  };
   return (
     <nav id="navbar" className="navbar order-last order-lg-0">
       <ul>
@@ -74,7 +78,7 @@ export const Navbar = () => {
             <NavLink
               to="/login"
               className="login-button scrollto"
-              onClick={firebase.logoutUser}>
+              onClick={handleLogout}>
               Logout
             </NavLink>
           </li>

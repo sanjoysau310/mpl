@@ -27,16 +27,14 @@ export const ProfilePicture = ({ onImageSelected }) => {
   };
 
   return (
-    <div className="col-md-6">
-      <div className="image-upload mt-3">
-        <label htmlFor="file-input" className="text-center">
-          <i>
-            <FontAwesomeIcon icon={faCamera} size="2x" />
-          </i>
-        </label>
-        <input id="file-input" type="file" onChange={handleFile} />
-        {message}
-      </div>
+    <div className="d-flex flex-column align-items-center">
+      <label htmlFor="file-input" className="">
+        <i>
+          <FontAwesomeIcon icon={faCamera} size="2x" />
+        </i>
+      </label>
+      <input id="file-input" type="file" onChange={handleFile} />
+      {message}
     </div>
   );
 };

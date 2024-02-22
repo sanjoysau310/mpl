@@ -18,25 +18,22 @@ export const UserLogin = () => {
     password: "",
     phone: "",
   });
-  const { userProfile, setUserProfile } = useFirebase();
+  const [userProfile, setUserProfile] = useState("");
   const [passwordType, setPasswordType] = useState("password");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // useEffect(() => {
-  //   setUserProfile("");
-  //   console.log(userProfile);
-  //   if (
-  //     userProfile !== null ||
-  //     userProfile !== undefined ||
-  //     userProfile != ""
-  //   ) {
-  //     console.log("userProfile");
-  //     if (userProfile.role === "user")
-  //       navigate(`/playerHome/${userProfile.fid}`);
-  //   } else if (userProfile.role === "admin") navigate("/admin");
-  //   else navigate("/login");
-  // }, [userProfile]);
+  useEffect(() => {
+    //setUserProfile("");
+    console.log(userProfile);
+    if (userProfile != "") {
+      console.log("userProfile");
+      if (userProfile.role === "user")
+        navigate(`/playerHome/${userProfile.fid}`, { replace: true });
+    } else if (userProfile.role === "admin")
+      navigate("/admin", { replace: true });
+    else navigate("/login", { replace: true });
+  }, [userProfile]);
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -49,65 +46,25 @@ export const UserLogin = () => {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     const authResponse = await firebase.loginUser(user.email, user.password);
-
-    console.log(authResponse);
+    console.log(authResponse._tokenResponse.idToken);
     const dbResponse = await firebase.getUserByIDFromDB(authResponse.user.uid);
-
-    console.log(dbResponse.val());
+    //console.log(dbResponse.val());
     dbResponse.val() ? setLoading(false) : setLoading(true);
-    //setUserProfile(dbResponse.val());
-    navigate(`/playerHome/${dbResponse.val().fid}`);
-    // dbResponse.val().role === "user"
-    //   ? navigate(`/playerHome/${dbResponse.val().fid}`)
-    //   : navigate("/admin");
-
-    // await firebase
-    //   .loginUser(user.email, user.password)
-    //   .then(async (authResponse) => {
-    //     await firebase
-    //       .getUserByIDFromDB(authResponse.user.uid)
-    //       .then((dbResponse) => {
-    //         console.log(dbResponse);
-    //         setLoading(true);
-
-    //         const { role, fid } = dbResponse.val();
-
-    //         if (role !== null) {
-    //           setLoading(true);
-    //           if (role === "user") {
-    //             console.log(role);
-    //             navigate(`/playerHome/${fid}`);
-    //           } else if (role === "admin") {
-    //             console.log(role);
-    //             navigate("/admin");
-    //           } else {
-    //             console.log(role);
-    //             navigate("/login");
-    //           }
-    //         }
-    //       });
-    //   });
-
-    // if (firebase) {
-    //       firebase.userProfile.role === "admin"
-    //         ? navigate("/")
-    //         : firebase.userProfile.role === "admin"
-    //         ? navigate("/playerHome")
-    //         : navigate("/login");
-    //     }
+    setUserProfile(dbResponse.val());
   };
+
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
         <section className="bg-light p-3 p-md-4 p-xl-5">
-          <div className="container position-relative">
+          <div className="container position-relative mt-3">
             <div className="row justify-content-center">
               <div className="col-12">
                 <div className="card border-light-subtle shadow-sm">

@@ -8,9 +8,9 @@ export const isAdmin = (token) => {
   return getDetails(token).role === process.env.REACT_APP_ADMIN;
 };
 
-export const isPlayer = (token) => {
+export const isUser = (token) => {
   //console.log(token, getDetails(token).role, process.env.REACT_APP_PLAYER);
-  return getDetails(token).role === process.env.REACT_APP_PLAYER;
+  return getDetails(token).role === process.env.REACT_APP_user;
 };
 
 export const getUser = (token) => {
