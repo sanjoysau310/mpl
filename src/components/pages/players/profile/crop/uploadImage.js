@@ -54,7 +54,7 @@ export const UploadImage = ({ setpImage, uploadImageData }) => {
     fetch(pImage)
       .then((res) => res.blob())
       .then((blob) => {
-        const file = new File([blob], "mpl2023", { type: "image/*" });
+        const file = new File([blob], "mpl2k24", { type: "image/*" });
         //pass prop to registration
         setpImage(file);
       });

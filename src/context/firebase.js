@@ -31,6 +31,7 @@ import {
   googleProvider,
   storage,
 } from "../firebase/firebaseConfig";
+import { playerAge } from "../utils/ageCalculator";
 
 const initialState = {
   isAuthenticated: false,
@@ -67,6 +68,7 @@ export const FirebaseProvider = (props) => {
       email: data.email,
       phone: data.phone,
       imageURL: "",
+      poaURL: "",
     });
   };
 
@@ -77,8 +79,34 @@ export const FirebaseProvider = (props) => {
       email: data.email,
       phone: data.phone,
       fid: fid,
-      role: "user",
+      accessType: "user",
     });
+  };
+
+  const updateUserToStore = async (editData) => {
+    const { id, dob, role, batting, bowling, address } = editData;
+    const updateRef = doc(fireStore, "users", id);
+
+    await updateDoc(updateRef, {
+      dob,
+      age: playerAge(dob),
+      role,
+      batting,
+      bowling,
+      address,
+    });
+
+    // const userRef = query(
+    //   collection(fireStore, "users"),
+    //   where("uid", "==", uid)
+    // );
+    // const findUsers = await getDocs(userRef);
+    // findUsers.forEach(async (user) => {
+    //   const getUser = doc(fireStore, "users", user.id);
+    //   await updateDoc(getUser, {
+    //     imageURL: uploadResult.ref.fullPath,
+    //   });
+    // });
   };
 
   const loginUser = async (email, password) => {
@@ -118,7 +146,7 @@ export const FirebaseProvider = (props) => {
   const uploadImageToStoregae = async (uid, image) => {
     const imageRef = refStorage(
       storage,
-      `uploads/images/${Date.now()}-${image.name}`
+      `/uploads/images/users/profilePic/${uid}-${image.name}`
     );
     const uploadResult = await uploadBytes(imageRef, image);
     const userRef = query(
@@ -131,6 +159,31 @@ export const FirebaseProvider = (props) => {
       await updateDoc(getUser, {
         imageURL: uploadResult.ref.fullPath,
       });
+    });
+  };
+
+  const uploadPOAToStoregae = async (id, uid, image) => {
+    const imageRef = refStorage(
+      storage,
+      `/uploads/images/users/poa/${uid}-${image.name}`
+    );
+    const uploadResult = await uploadBytes(imageRef, image);
+    // const userRef = query(
+    //   collection(fireStore, "users"),
+    //   where("uid", "==", uid)
+    // );
+    // const findUsers = await getDocs(userRef);
+    // findUsers.forEach(async (user) => {
+    //   const getUser = doc(fireStore, "users", user.id);
+    //   await updateDoc(getUser, {
+    //     imageURL: uploadResult.ref.fullPath,
+    //   });
+    // });
+
+    const updateRef = doc(fireStore, "users", id);
+
+    await updateDoc(updateRef, {
+      poaURL: uploadResult.ref.fullPath,
     });
   };
 
@@ -165,6 +218,7 @@ export const FirebaseProvider = (props) => {
       value={{
         createUser,
         addUserToStore,
+        updateUserToStore,
         addUserToDB,
         updateUser,
         loginUser,
@@ -176,6 +230,7 @@ export const FirebaseProvider = (props) => {
         //fetchUser,
         userProfile,
         uploadImageToStoregae,
+        uploadPOAToStoregae,
         getAllUsers,
         getUserByID,
         getImageURL,

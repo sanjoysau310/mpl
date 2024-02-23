@@ -1,7 +1,8 @@
 import React from "react";
 
 export const UserProfileOverview = ({ profile }) => {
-  const { email, name, uid, phone } = profile;
+  const { email, name, uid, phone, role, batting, bowling, age, address } =
+    profile;
   return (
     <div
       className="tab-pane fade profile-overview active show"
@@ -28,25 +29,23 @@ export const UserProfileOverview = ({ profile }) => {
       </div>
       <div className="row">
         <div className="col-lg-3 col-md-4 label">Role</div>
-        <div className="col-lg-9 col-md-8">Batsman</div>
+        <div className="col-lg-9 col-md-8">{role}</div>
       </div>
       <div className="row">
         <div className="col-lg-3 col-md-4 label">Batting Style</div>
-        <div className="col-lg-9 col-md-8">Left</div>
+        <div className="col-lg-9 col-md-8">{batting}</div>
       </div>
       <div className="row">
         <div className="col-lg-3 col-md-4 label">Bowling Style</div>
-        <div className="col-lg-9 col-md-8">Right</div>
+        <div className="col-lg-9 col-md-8">{bowling}</div>
       </div>
       <div className="row">
         <div className="col-lg-3 col-md-4 label">Age</div>
-        <div className="col-lg-9 col-md-8">20</div>
+        <div className="col-lg-9 col-md-8">{age}</div>
       </div>
       <div className="row">
         <div className="col-lg-3 col-md-4 label">Address</div>
-        <div className="col-lg-9 col-md-8">
-          C/6, Katjunagar, Jadavpur, Kolkata-32
-        </div>
+        <div className="col-lg-9 col-md-8">{address}</div>
       </div>
     </div>
   );

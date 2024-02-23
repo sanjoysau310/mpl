@@ -33,7 +33,9 @@ export const ProfilePicture = ({ onImageSelected }) => {
           <FontAwesomeIcon icon={faCamera} size="2x" />
         </i>
       </label>
-      <input id="file-input" type="file" onChange={handleFile} />
+      <div className="file-input">
+        <input id="file-input" type="file" onChange={handleFile} />
+      </div>
       {message}
     </div>
   );

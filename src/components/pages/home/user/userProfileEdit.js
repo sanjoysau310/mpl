@@ -10,7 +10,6 @@ export const UserProfileEdit = ({ profile }) => {
   const [editProfile, setEditProfile] = useState({
     id: params.id,
     dob: "",
-    age: "",
     role: "",
     batting: "",
     bowling: "",
@@ -27,6 +26,9 @@ export const UserProfileEdit = ({ profile }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(editProfile);
+    firebase.updateUserToStore(editProfile).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
@@ -142,6 +144,7 @@ export const UserProfileEdit = ({ profile }) => {
             <Form.Select
               aria-label="Default select example"
               // value={editProfile.role}
+              name="role"
               onChange={handleChange}>
               <option value="">Select Role</option>
               <option value="Batsman">Batsman</option>
@@ -156,52 +159,24 @@ export const UserProfileEdit = ({ profile }) => {
             Batting Style
           </label>
           <div className="col-md-8 col-lg-9">
-            {["checkbox", "radio"].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check
-                  inline
-                  label="1"
-                  name="group1"
-                  type={type}
-                  id={`inline-${type}-1`}
-                />
-                <Form.Check
-                  inline
-                  label="2"
-                  name="group1"
-                  type={type}
-                  id={`inline-${type}-2`}
-                />
-                <Form.Check
-                  inline
-                  disabled
-                  label="3 (disabled)"
-                  type={type}
-                  id={`inline-${type}-3`}
-                />
-              </div>
-            ))}
-
-            {/* <div key={`inline-${type}`} className="mb-3">
-              <Form.Check
-                inline
-                label="Left"
-                name="batting"
-                type="radio"
-                value="Left Hand"
-                onChange={handleChange}
-                id={`inline-${type}-Left`}
-              />
-              <Form.Check
-                inline
-                label="Right"
-                name="batting"
-                type="radio"
-                value="Right Hand"
-                onChange={handleChange}
-                id={`inline-${type}-Right`}
-              />
-            </div> */}
+            <Form.Check
+              inline
+              label="Left"
+              name="batting"
+              type="radio"
+              value="Left Hand"
+              onChange={handleChange}
+              id="inline-radio-Left"
+            />
+            <Form.Check
+              inline
+              label="Right"
+              name="batting"
+              type="radio"
+              value="Right Hand"
+              onChange={handleChange}
+              id="inline-radio-Right"
+            />
           </div>
         </div>
         <div className="row mb-3">
@@ -209,24 +184,24 @@ export const UserProfileEdit = ({ profile }) => {
             Bowling Style
           </label>
           <div className="col-md-8 col-lg-9">
-            <div key={`inline-${type}`} className="mb-3">
-              <Form.Check
-                inline
-                label="Left"
-                name="bowling"
-                type="radio"
-                value="Left Hand"
-                onChange={handleChange}
-                id={`inline-${type}-Left`}
-              />
-              <Form.Check
-                inline
-                label="Right"
-                name="bowling"
-                type="radio"
-                id={`inline-${type}-Right`}
-              />
-            </div>
+            <Form.Check
+              inline
+              label="Left"
+              name="bowling"
+              type="radio"
+              value="Left Hand"
+              onChange={handleChange}
+              id="inline-radio-Left"
+            />
+            <Form.Check
+              inline
+              label="Right"
+              name="bowling"
+              type="radio"
+              value="Right Hand"
+              onChange={handleChange}
+              id="inline-radio-Right"
+            />
           </div>
         </div>
         <div className="row mb-3">

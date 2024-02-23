@@ -26,7 +26,7 @@ export const UserProfileHome = () => {
 
   const [key, setKey] = useState("Overview");
 
-  console.log(profile);
+  //console.log(profile);
 
   return (
     <>

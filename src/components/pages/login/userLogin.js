@@ -28,9 +28,9 @@ export const UserLogin = () => {
     console.log(userProfile);
     if (userProfile != "") {
       console.log("userProfile");
-      if (userProfile.role === "user")
+      if (userProfile.accessType === "user")
         navigate(`/playerHome/${userProfile.fid}`, { replace: true });
-    } else if (userProfile.role === "admin")
+    } else if (userProfile.accessType === "admin")
       navigate("/admin", { replace: true });
     else navigate("/login", { replace: true });
   }, [userProfile]);
