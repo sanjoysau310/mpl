@@ -25,9 +25,9 @@ export const UserLogin = () => {
 
   useEffect(() => {
     //setUserProfile("");
-    console.log(userProfile);
+    //console.log(userProfile);
     if (userProfile != "") {
-      console.log("userProfile");
+      //console.log("userProfile");
       if (userProfile.accessType === "user")
         navigate(`/playerHome/${userProfile.fid}`, { replace: true });
     } else if (userProfile.accessType === "admin")
@@ -51,7 +51,7 @@ export const UserLogin = () => {
     e.preventDefault();
     setLoading(true);
     const authResponse = await firebase.loginUser(user.email, user.password);
-    console.log(authResponse._tokenResponse.idToken);
+    console.log(authResponse);
     const dbResponse = await firebase.getUserByIDFromDB(authResponse.user.uid);
     //console.log(dbResponse.val());
     dbResponse.val() ? setLoading(false) : setLoading(true);

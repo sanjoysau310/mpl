@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useFirebase } from "../../../../context/firebase";
 import { Spinner } from "../../../layouts/spinner";
+import { ImageModal } from "../../../../utils/modals/imageModal";
 
-export const UserPOA = ({ poaURL, fileType }) => {
+export const UserPOA = ({ poaURL, type }) => {
   const firebase = useFirebase();
   const [url, setURL] = useState("");
+  const [modalShow, setModalShow] = useState(false);
   useEffect(() => {
     firebase.getImageURL(poaURL).then((url) => setURL(url));
   }, []);
   return (
-    <>
-      {console.log(fileType)}
+    <div className="col-sm-4 col-md-4 col-xl-4">
       {url ? (
-        fileType.equalsIgnoreCase("pdf") ? (
-          <object width="100%" height="400" data={url} type="application/pdf" />
-        ) : (
-          <img src={url} alt="User" className="img-fluid" />
-        )
+        <>
+          <img
+            src={url}
+            alt="User"
+            className="img-fluid"
+            onClick={() => setModalShow(true)}
+          />
+        </>
       ) : (
         <Spinner />
       )}
-    </>
+
+      <ImageModal
+        show={modalShow}
+        heading="Address & POA"
+        url={url}
+        onHide={() => setModalShow(false)}
+      />
+    </div>
   );
 };

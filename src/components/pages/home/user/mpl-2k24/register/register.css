@@ -1,0 +1,18 @@
+.btn-group {
+    outline-color: #f82249 !important;
+}
+
+.btn {
+    outline-color: #f82249 !important;
+}
+
+
+.btn-bg {
+    outline-color: #f82249 !important;
+    background-color: #f82249 !important;
+
+}
+
+.btn:active {
+    background-color: #f82249 !important;
+}

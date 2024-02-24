@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./userProfile.css";
 import { UserProfilePic } from "./userProfilePic";
 import { UserProfileOverview } from "./userProfileOverview";
@@ -7,8 +8,10 @@ import { UserProfileSettings } from "./userProfileSettings";
 import { UserProfileChangePassword } from "./userProfileChangePassword";
 import { Spinner, Tab, Tabs } from "react-bootstrap";
 import { UserProfilePOA } from "./userProfilePOA";
-import { useNavigate, useParams } from "react-router-dom";
-import { useFirebase } from "../../../../context/firebase";
+import { useFirebase } from "../../../../../context/firebase";
+import { Mpl2k24 } from "../mpl-2k24/mpl2k24";
+import { Owner } from "../mpl-2k24/register/owner/owner";
+import { Register } from "../mpl-2k24/register/register";
 
 export const UserProfileHome = () => {
   let params = useParams();
@@ -16,17 +19,13 @@ export const UserProfileHome = () => {
   const firebase = useFirebase();
   const [profile, setProfile] = useState("");
 
-  //console.log(firebase.isLoggedIn);
+  const mpl2k24 = <Mpl2k24 />;
 
   useEffect(() => {
     firebase.getUserByID(params.id).then((res) => setProfile(res.data()));
   }, []);
 
-  //const { email, name, uid, imageURL, phone } = profile;
-
   const [key, setKey] = useState("Overview");
-
-  //console.log(profile);
 
   return (
     <>
@@ -59,11 +58,18 @@ export const UserProfileHome = () => {
                     </Tab>
                     <Tab eventKey="Change Password" title="Change Password">
                       {/* <UserProfileChangePassword /> */}
-                      Coming Soon
+                      <div className="mt-5 mb-5 p-5 text-center">
+                        <h5>Coming Soon</h5>
+                      </div>
                     </Tab>
-                    <Tab eventKey="Settings" title="Settings">
-                      {/* <UserProfileSettings /> */}
-                      Coming Soon
+                    {/* <Tab eventKey="Settings" title="Settings">
+                      <UserProfileSettings />
+                      <div className="mt-5 mb-5 p-5 text-center">
+                        <h5>Coming Soon</h5>
+                      </div>
+                    </Tab> */}
+                    <Tab eventKey={mpl2k24} title={mpl2k24}>
+                      <Register />
                     </Tab>
                   </Tabs>
                 </div>

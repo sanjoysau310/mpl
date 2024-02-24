@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 import pp from "../../../../assets/images/home/pp.png";
+import { InvalidInput } from "../../../../utils/errors/invalidInput";
 
 export const ProfilePicture = ({ onImageSelected }) => {
   const [image, setImage] = useState("");
@@ -34,9 +35,14 @@ export const ProfilePicture = ({ onImageSelected }) => {
         </i>
       </label>
       <div className="file-input">
-        <input id="file-input" type="file" onChange={handleFile} />
+        <input
+          id="file-input"
+          type="file"
+          accept="image/*"
+          onChange={handleFile}
+        />
       </div>
-      {message}
+      <InvalidInput message={message} />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import pp from "../../../../assets/images/home/pp.png";
-import login from "../../../../assets/images/backgrounds/login/login1.jpg";
-import { UserPicture } from "../../players/player/userPicture";
-import { UploadImage } from "../../players/profile/crop/uploadImage";
-import { useFirebase } from "../../../../context/firebase";
+import pp from "../../../../../assets/images/home/pp.png";
+import login from "../../../../../assets/images/backgrounds/login/login1.jpg";
+import { UserPicture } from "../../../players/player/userPicture";
+import { UploadImage } from "../../../players/profile/crop/uploadImage";
+import { useFirebase } from "../../../../../context/firebase";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const UserProfilePic = ({ profile }) => {
@@ -11,7 +11,7 @@ export const UserProfilePic = ({ profile }) => {
   let navigate = useNavigate();
   const firebase = useFirebase();
   const [pImage, setpImage] = useState("");
-  const { name, uid, imageURL } = profile;
+  const { name, uid, imageURL, played } = profile;
 
   const uploadImageData = () => {
     firebase.uploadImageToStoregae(uid, pImage);
@@ -41,7 +41,8 @@ export const UserProfilePic = ({ profile }) => {
           />
         )}
         <h2>{name}</h2>
-        <span className="mt-5">
+        <h6 className="mt-2">Previouly Played- {played}</h6>
+        <span className="mt-3">
           <UploadImage
             setpImage={setpImage}
             uploadImageData={uploadImageData}

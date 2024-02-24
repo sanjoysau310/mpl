@@ -1,21 +1,35 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFirebase } from "../../../../context/firebase";
+import { useFirebase } from "../../../../../context/firebase";
 
-import poaSample from "../../../../assets/images/poa/poa.png";
-import { UserPOA } from "../../players/player/userPOA";
+import poaSample from "../../../../../assets/images/poa/poa.png";
+import { UserPOA } from "../../../players/player/userPOA";
+import { InvalidInput } from "../../../../../utils/errors/invalidInput";
 
 export const UserProfilePOA = ({ profile }) => {
   let params = useParams();
   let navigate = useNavigate();
   const firebase = useFirebase();
   const [poa, setPOA] = useState("");
+  const [message, setMessage] = useState("");
+
   const { name, uid, poaURL } = profile;
 
-  String.prototype.equalsIgnoreCase = function (compareString) {
-    return this.toUpperCase() === compareString.toUpperCase();
+  const handleFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      if (e.target.files[0].size > 0.3 * 1024 * 1024) {
+        setMessage("Please upload an image less than 300KB");
+        setPOA("");
+      } else {
+        setPOA(e.target.files[0]);
+        setMessage("");
+      }
+    }
   };
+
+  console.log(poa);
+  console.log(message);
 
   const uploadPOAData = (e) => {
     e.preventDefault();
@@ -39,21 +53,26 @@ export const UserProfilePOA = ({ profile }) => {
           </label>
           <div className="col-md-8 col-lg-9">
             <Form.Control
+              accept="image/*"
               type="file"
               name="poa"
-              onChange={(e) => setPOA(e.target.files[0])}
+              onChange={handleFile}
             />
           </div>
         </div>
         <div className="text-center">
-          <button type="submit" className="btn btn-primary">
+          <InvalidInput message={message} />
+          <button
+            type="submit"
+            className="btn btn-primary mt-3"
+            disabled={message != "" || poa === ""}>
             Upload
           </button>
         </div>
       </form>
       <div className="d-flex flex-column align-items-center mt-5 mb-3">
         {poaURL !== "" ? (
-          <UserPOA poaURL={poaURL} fileType={poaURL.split(".")[1]} />
+          <UserPOA poaURL={poaURL} type={poaURL.split(".")[1]} />
         ) : (
           <img src={poaSample} alt="User" className="img-fluid" />
         )}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFirebase } from "../../../../context/firebase";
+import { useFirebase } from "../../../../../context/firebase";
 
 export const UserProfileEdit = ({ profile }) => {
   let params = useParams();
@@ -26,14 +26,13 @@ export const UserProfileEdit = ({ profile }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(editProfile);
-    firebase.updateUserToStore(editProfile).then((res) => {
+    firebase.updateUserToStore(params.id, editProfile).then((res) => {
       console.log(res);
     });
   };
 
   return (
     <div className="tab-pane fade show active profile-edit pt-3">
-      {/* Profile Edit Form */}
       <form onSubmit={handleSubmit}>
         {/* <div className="row mb-3">
           <label
@@ -221,12 +220,20 @@ export const UserProfileEdit = ({ profile }) => {
         </div>
 
         <div className="text-center">
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={
+              editProfile.dob === "" ||
+              editProfile.role === "" ||
+              editProfile.batting === "" ||
+              editProfile.bowling === "" ||
+              editProfile.address === ""
+            }>
             Save Changes
           </button>
         </div>
       </form>
-      {/* End Profile Edit Form */}
     </div>
   );
 };

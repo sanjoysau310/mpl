@@ -1,0 +1,62 @@
+/* Button resets and style */
+.pulse-button {
+    font-family: "Montserrat";
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 8px;
+    border: 0px solid #000;
+}
+
+.pulse-button {
+    animation: borderPulse 1000ms infinite ease-out, colorShift 10000ms infinite ease-in;
+}
+
+.pulse-button-hover {
+    animation: colorShift 10000ms infinite ease-in;
+}
+
+.pulse-button:hover,
+.pulse-button:focus {
+    animation: borderPulse 1000ms infinite ease-out, colorShift 10000ms infinite ease-in, hoverShine 200ms;
+}
+
+@keyframes colorShift {
+
+    0%,
+    100% {
+        background: #f82249;
+    }
+
+    33% {
+        background: #af102d;
+    }
+
+    66% {
+        background: #fc002e;
+    }
+}
+
+@keyframes borderPulse {
+    0% {
+        box-shadow: inset 0px 0px 0px 5px rgba(255, 255, 255, .4), 0px 0px 0px 0px rgba(255, 255, 255, 1);
+    }
+
+    100% {
+        box-shadow: inset 0px 0px 0px 3px rgba(117, 117, 255, .2), 0px 0px 0px 10px rgba(255, 255, 255, 0);
+    }
+}
+
+@keyframes hoverShine {
+    0% {
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, .4) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    50% {
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    100% {
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, .4) 100%);
+    }
+}

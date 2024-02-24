@@ -32,6 +32,7 @@ import {
   storage,
 } from "../firebase/firebaseConfig";
 import { playerAge } from "../utils/ageCalculator";
+import { useCookies } from "../cookies/useCookies";
 
 const initialState = {
   isAuthenticated: false,
@@ -45,18 +46,33 @@ export const useFirebase = () => useContext(FirebaseContext);
 
 export const FirebaseProvider = (props) => {
   const [store, setStore] = useState(initialState);
-
+  const { setCookie } = useCookies();
   const [user, setUser] = useState("");
   const [profile, setProfile] = useState("");
+  const [loading, setLoading] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       user ? setUser(user) : setUser("");
     });
+    // onAuthStateChanged(firebaseAuth, (user) => {
+    //   user ? setCookie("currentUser", user) : setCookie("currentUser", "");
+    // });
     onValue(refDB(firebaseDB, `users/${user.uid}`), (res) =>
       setProfile(res.val())
     );
   }, []);
+
+  const loginUser = async (email, password) => {
+    return await signInWithEmailAndPassword(firebaseAuth, email, password);
+  };
+  const authUser = user;
+  const isLoggedIn = user ? true : false;
+
+  const logoutUser = () => {
+    return signOut(firebaseAuth);
+  };
 
   const createUser = async (email, password) => {
     return await createUserWithEmailAndPassword(firebaseAuth, email, password);
@@ -83,10 +99,9 @@ export const FirebaseProvider = (props) => {
     });
   };
 
-  const updateUserToStore = async (editData) => {
-    const { id, dob, role, batting, bowling, address } = editData;
+  const updateUserToStore = async (id, editData) => {
+    const { dob, role, batting, bowling, address } = editData;
     const updateRef = doc(fireStore, "users", id);
-
     await updateDoc(updateRef, {
       dob,
       age: playerAge(dob),
@@ -94,30 +109,36 @@ export const FirebaseProvider = (props) => {
       batting,
       bowling,
       address,
+      played: "",
+      pastTeam: "",
+      currentTeam: "",
+      soldPrice: "",
+      teamOwned: "",
+      bidAmount: "",
     });
-
-    // const userRef = query(
-    //   collection(fireStore, "users"),
-    //   where("uid", "==", uid)
-    // );
-    // const findUsers = await getDocs(userRef);
-    // findUsers.forEach(async (user) => {
-    //   const getUser = doc(fireStore, "users", user.id);
-    //   await updateDoc(getUser, {
-    //     imageURL: uploadResult.ref.fullPath,
-    //   });
-    // });
   };
 
-  const loginUser = async (email, password) => {
-    return await signInWithEmailAndPassword(firebaseAuth, email, password);
+  const updatePlayerToStore = async (id, playerData) => {
+    const { played, pastTeam, basePrice } = playerData;
+    const updateRef = doc(fireStore, "users", id);
+    await updateDoc(updateRef, {
+      played,
+      pastTeam,
+      basePrice,
+    });
   };
-  const authUser = user;
-  const isLoggedIn = user ? true : false;
 
-  const logoutUser = () => {
-    return signOut(firebaseAuth);
+  const updateOwnerToStore = async (id, ownerData) => {
+    const { played, pastTeam, maxBidAmount } = ownerData;
+    const updateRef = doc(fireStore, "users", id);
+    await updateDoc(updateRef, {
+      played,
+      pastTeam,
+      maxBidAmount,
+    });
   };
+
+  const updateUserToDB = async (id, accessType) => {};
 
   const getUserByIDFromDB = async (uid) => {
     return await get(child(refDB(firebaseDB), `users/${uid}`));
@@ -168,20 +189,7 @@ export const FirebaseProvider = (props) => {
       `/uploads/images/users/poa/${uid}-${image.name}`
     );
     const uploadResult = await uploadBytes(imageRef, image);
-    // const userRef = query(
-    //   collection(fireStore, "users"),
-    //   where("uid", "==", uid)
-    // );
-    // const findUsers = await getDocs(userRef);
-    // findUsers.forEach(async (user) => {
-    //   const getUser = doc(fireStore, "users", user.id);
-    //   await updateDoc(getUser, {
-    //     imageURL: uploadResult.ref.fullPath,
-    //   });
-    // });
-
     const updateRef = doc(fireStore, "users", id);
-
     await updateDoc(updateRef, {
       poaURL: uploadResult.ref.fullPath,
     });
@@ -219,7 +227,10 @@ export const FirebaseProvider = (props) => {
         createUser,
         addUserToStore,
         updateUserToStore,
+        updatePlayerToStore,
+        updateOwnerToStore,
         addUserToDB,
+        updateUserToDB,
         updateUser,
         loginUser,
         signinWithGoogle,
