@@ -32,7 +32,6 @@ import {
   storage,
 } from "../firebase/firebaseConfig";
 import { playerAge } from "../utils/ageCalculator";
-import { useCookies } from "../cookies/useCookies";
 
 const initialState = {
   isAuthenticated: false,
@@ -46,7 +45,7 @@ export const useFirebase = () => useContext(FirebaseContext);
 
 export const FirebaseProvider = (props) => {
   const [store, setStore] = useState(initialState);
-  const { setCookie } = useCookies();
+
   const [user, setUser] = useState("");
   const [profile, setProfile] = useState("");
   const [loading, setLoading] = useState("");
@@ -56,7 +55,7 @@ export const FirebaseProvider = (props) => {
     onAuthStateChanged(firebaseAuth, (user) => {
       user ? setUser(user) : setUser("");
     });
-    
+
     onValue(refDB(firebaseDB, `users/${user.uid}`), (res) =>
       setProfile(res.val())
     );

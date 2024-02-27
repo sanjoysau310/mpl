@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useFirebase } from "../../../../context/firebase";
-import { Spinner } from "../../../layouts/spinner";
-import { ImageModal } from "../../../../utils/modals/imageModal";
+import { Spinner } from "../../../../../layouts/spinner";
+import { ImageModal } from "../../../../../../utils/modals/imageModal";
+import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 
-export const UserPOA = ({ poaURL, type }) => {
+export const UserPOA = ({ poaURL}) => {
   const firebase = useFirebase();
   const [url, setURL] = useState("");
   const [modalShow, setModalShow] = useState(false);

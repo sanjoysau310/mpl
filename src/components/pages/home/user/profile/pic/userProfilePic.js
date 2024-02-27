@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import pp from "../../../../../assets/images/home/pp.png";
-import login from "../../../../../assets/images/backgrounds/login/login1.jpg";
-import { UserPicture } from "../../../players/player/userPicture";
-import { UploadImage } from "../../../players/profile/crop/uploadImage";
+import pp from "../../../../../../assets/images/home/pp.png";
+import login from "../../../../../../assets/images/backgrounds/login/login1.jpg";
+import { UserPicture } from "./userPicture";
+import { UploadImage } from "./crop/uploadImage";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFirebase } from "../../../../../hooks/useFirebase";
+import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 
 export const UserProfilePic = () => {

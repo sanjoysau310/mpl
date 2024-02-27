@@ -1,19 +1,21 @@
 import React from "react";
 import "./navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useFirebase } from "../../../hooks/useFirebase";
+import { useFirebase } from "../../../hooks/firebase/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../../store/slices/userSlice";
+
 export const Navbar = () => {
   const firebase = useFirebase();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const { uid, email, accessToken, accessType } = user;
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch(removeUser());
-    firebase.logoutUser();
-    navigate("/login", { replace: true });
+    await firebase.logoutUser().then(() => {
+      navigate("/login", { replace: true });
+    });
   };
   return (
     <nav id="navbar" className="navbar order-last order-lg-0">

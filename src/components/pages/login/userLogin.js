@@ -8,10 +8,10 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { GoogleLogin } from "./googleLogin";
 import { Spinner } from "../../layouts/spinner";
 import { useDispatch, useSelector } from "react-redux";
-import { authUser } from "../../../store/slices/userSlice";
+import { authUser, setLoading } from "../../../store/slices/userSlice";
 import { LoginForm } from "./loginForm";
-import { useFirebase } from "../../../hooks/useFirebase";
-import { useAuth } from "../../../hooks/useAuth";
+import { useFirebase } from "../../../hooks/firebase/useFirebase";
+import { useAuth } from "../../../hooks/auth/useAuth";
 
 export const UserLogin = () => {
   const firebase = useFirebase();
@@ -30,6 +30,7 @@ export const UserLogin = () => {
 
   const handleLogin = async (e, user) => {
     e.preventDefault();
+    dispatch(setLoading(true));
     await firebase.loginUser(user.email, user.password);
 
     // const authResponse = await firebase.loginUser(user.email, user.password);

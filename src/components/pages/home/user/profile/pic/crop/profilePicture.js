@@ -3,8 +3,8 @@ import "./profilePicture.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
-import pp from "../../../../assets/images/home/pp.png";
-import { InvalidInput } from "../../../../utils/errors/invalidInput";
+import pp from "../../../../../../../assets/images/home/pp.png";
+import { InvalidInput } from "../../../../../../../utils/errors/invalidInput";
 
 export const ProfilePicture = ({ onImageSelected }) => {
   const [image, setImage] = useState("");

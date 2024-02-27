@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RegisterForm } from "./registerForm";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "../../../firebase/firebaseConfig";
-import { useFirebase } from "../../../hooks/useFirebase";
+import { useFirebase } from "../../../hooks/firebase/useFirebase";
 import { useDispatch } from "react-redux";
 import { authUser } from "../../../store/slices/userSlice";
 

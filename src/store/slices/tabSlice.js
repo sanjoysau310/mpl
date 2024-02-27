@@ -16,19 +16,19 @@ const tabSlice = createSlice({
     changeTab: (state, action) => {
       state.key = String(action.payload);
     },
-    editProfile: (state, action) => {
+    editProfile: (state) => {
       state.key = "Overview";
-      state.content = {
-        ...state.content,
-        second: action.payload,
-      };
+      // state.content = {
+      //   ...state.content,
+      //   second: action.payload,
+      // };
     },
-    registerMPL2k24: (state, action) => {
+    registerMPL2k24: (state) => {
       state.key = "Overview";
-      state.content = {
-        ...state.content,
-        third: action.payload,
-      };
+      // state.content = {
+      //   ...state.content,
+      //   third: action.payload,
+      // };
     },
   },
 });

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import CropImage from "./cropImage";
-import { ProfilePicture } from "../profilePicture";
-import { useFirebase } from "../../../../../context/firebase";
+import { ProfilePicture } from "./profilePicture";
+import { useFirebase } from "../../../../../../../hooks/firebase/useFirebase";
 
 export const UploadImage = ({ setpImage, uploadImageData }) => {
   const [image, setImage] = useState("");
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
   const firebase = useFirebase();
-  
 
   // Invoked when new image file is selected
   const onImageSelected = (selectedImg) => {

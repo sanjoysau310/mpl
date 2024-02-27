@@ -6,11 +6,10 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 
 import { RouterProvider } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useCookies } from "./cookies/useCookies";
 import { router } from "./routes/router";
-import { useFirebase } from "./hooks/useFirebase";
+import { useFirebase } from "./hooks/firebase/useFirebase";
 import { useSelector } from "react-redux";
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from "./hooks/auth/useAuth";
 
 function App() {
   const firebase = useFirebase();

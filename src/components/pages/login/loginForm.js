@@ -7,9 +7,7 @@ export const LoginForm = ({handleSubmit}) => {
     password: "",
     phone: "",
   });
-  const [userProfile, setUserProfile] = useState("");
   const [passwordType, setPasswordType] = useState("password");
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const togglePassword = () => {
     if (passwordType === "password") {

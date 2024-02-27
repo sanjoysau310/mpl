@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFirebase } from "../../../../../context/firebase";
 
-import poaSample from "../../../../../assets/images/poa/poa.png";
-import { UserPOA } from "../../../players/player/userPOA";
-import { InvalidInput } from "../../../../../utils/errors/invalidInput";
+import poaSample from "../../../../../../assets/images/poa/poa.png";
+import { UserPOA } from "./userPOA";
+import { InvalidInput } from "../../../../../../utils/errors/invalidInput";
+import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
+import { useDispatch, useSelector } from "react-redux";
 
-export const UserProfilePOA = ({ profile }) => {
+export const UserProfilePOA = () => {
   let params = useParams();
   let navigate = useNavigate();
   const firebase = useFirebase();
   const [poa, setPOA] = useState("");
   const [message, setMessage] = useState("");
 
-  const { name, uid, poaURL } = profile;
+  const profile = useSelector((state) => state.user.profile);
+  const dispatch = useDispatch();
+
+  const { uid, poaURL } = profile;
 
   const handleFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -72,7 +76,7 @@ export const UserProfilePOA = ({ profile }) => {
       </form>
       <div className="d-flex flex-column align-items-center mt-5 mb-3">
         {poaURL !== "" ? (
-          <UserPOA poaURL={poaURL} type={poaURL.split(".")[1]} />
+          <UserPOA poaURL={poaURL} />
         ) : (
           <img src={poaSample} alt="User" className="img-fluid" />
         )}

@@ -2,9 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "../components/layouts/layout";
 import LandingPage from "../components/pages/landing/landingPage";
 import { Contact } from "../components/pages/contact/contact";
-import { Login } from "../components/pages/login/login";
-import { Register } from "../components/pages/register/register";
-import { UserHome } from "../components/pages/players/player/userHome";
 import { PlayersList } from "../components/pages/players/list/playersList";
 import { About } from "../components/pages/about/about";
 import { Events } from "../components/pages/events/events";
@@ -15,8 +12,7 @@ import { Admin } from "../components/pages/home/admin/admin";
 import { UserLogin } from "../components/pages/login/userLogin";
 import { UserRegister } from "../components/pages/register/userRegister";
 import { PrivateRoutes } from "./privateRoutes";
-import { UserProfileHome } from "../components/pages/home/user/profile/userProfileHome";
-import { UserProfileControl } from "../components/pages/home/user/profile/userProfileControl";
+import { UserProfileControl } from "../components/pages/home/user/profile/main/userProfileControl";
 
 export const router = createBrowserRouter([
   {
@@ -52,15 +48,10 @@ export const router = createBrowserRouter([
         path: "teams",
         element: <Teams />,
       },
-
       {
         path: "contact",
         element: <Contact />,
       },
-      // {
-      //   path: "register",
-      //   element: <Register />,
-      // },
       {
         path: "register",
         element: <UserRegister />,
@@ -69,28 +60,13 @@ export const router = createBrowserRouter([
         path: "login",
         element: <UserLogin />,
       },
-      // {
-      //   path: "login",
-      //   element: <Login />,
-      // },
-      // protected routes
-      // { path: "playerHome", element: userAccess ? <UserHome /> : <Login /> },
-      // { path: "playerHome/:id", element: <UserHome /> },
-
       {
         element: <PrivateRoutes />,
         children: [
-          // { path: "playerHome/:id", element: <UserProfileHome /> },
           { path: "playerHome/:id", element: <UserProfileControl /> },
           { path: "adminHome", element: <Admin /> },
         ],
       },
-
-      //admin routes
-      // {
-      //   path: "",
-      //   element: adminAccess ? <LandingPage /> : <Login />,
-      // },
     ],
   },
 ]);

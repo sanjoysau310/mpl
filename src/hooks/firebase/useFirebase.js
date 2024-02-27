@@ -28,17 +28,26 @@ import {
   firebaseDB,
   googleProvider,
   storage,
-} from "../firebase/firebaseConfig";
-import { playerAge } from "../utils/ageCalculator";
+} from "../../firebase/firebaseConfig";
+import { playerAge } from "../../utils/ageCalculator";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { authAccess, authUser, setLoading } from "../store/slices/userSlice";
+import { authAccess, authUser, setLoading } from "../../store/slices/userSlice";
 
 export const useFirebase = () => {
   const dispatch = useDispatch();
 
-  const authenticateUser = () => {
-    onAuthStateChanged(firebaseAuth, (user) => {
+  // Authentication
+  const createUser = async (email, password) => {
+    return await createUserWithEmailAndPassword(firebaseAuth, email, password);
+  };
+
+  const loginUser = async (email, password) => {
+    return await signInWithEmailAndPassword(firebaseAuth, email, password);
+  };
+
+  const authenticateUser = async () => {
+    await onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
         dispatch(authUser(user));
         getUserByIDFromDB(user.uid).then((res) => {
@@ -49,15 +58,11 @@ export const useFirebase = () => {
     });
   };
 
-  const loginUser = async (email, password) => {
-    return await signInWithEmailAndPassword(firebaseAuth, email, password);
+  const logoutUser = async () => {
+    return await signOut(firebaseAuth);
   };
-  const logoutUser = () => {
-    return signOut(firebaseAuth);
-  };
-  const createUser = async (email, password) => {
-    return await createUserWithEmailAndPassword(firebaseAuth, email, password);
-  };
+
+  // firestore
   const addUserToStore = async (uid, data) => {
     return await addDoc(collection(fireStore, "users"), {
       uid: uid,
@@ -66,9 +71,71 @@ export const useFirebase = () => {
       phone: data.phone,
       imageURL: "",
       poaURL: "",
+      played: "",
     });
   };
 
+  const updateUserToStore = async (id, editData) => {
+    const { dob, role, batting, bowling, address } = editData;
+    const updateRef = doc(fireStore, "users", id);
+    await updateDoc(updateRef, {
+      dob,
+      age: playerAge(dob),
+      role,
+      batting,
+      bowling,
+      address,
+      pastTeam: "",
+      currentTeam: "",
+      soldPrice: "",
+      teamOwned: "",
+      bidAmount: "",
+    });
+  };
+
+  const updatePlayerToStore = async (id, playerData) => {
+    const { played, pastTeam, basePrice } = playerData;
+    const updateRef = doc(fireStore, "users", id);
+    await updateDoc(updateRef, {
+      played,
+      pastTeam,
+      basePrice,
+    });
+  };
+
+  const updateOwnerToStore = async (id, ownerData) => {
+    const { played, pastTeam, maxBidAmount } = ownerData;
+    const updateRef = doc(fireStore, "users", id);
+    await updateDoc(updateRef, {
+      played,
+      pastTeam,
+      maxBidAmount,
+    });
+  };
+
+  const getUserByID = async (id) => {
+    const userRef = doc(fireStore, "users", id);
+    const res = await getDoc(userRef);
+    if (res) dispatch(setLoading(false));
+    return res;
+  };
+
+  const getAllUsers = async () => {
+    return await getDocs(collection(fireStore, "users"));
+  };
+
+  const fetchUserImageFromStore = async (uid) => {
+    const userRef = query(
+      collection(fireStore, "users"),
+      where("id", "==", uid)
+    );
+    const findUsers = await getDocs(userRef);
+    findUsers.forEach(async (user) => {
+      return doc(fireStore, "users", user.id);
+    });
+  };
+
+  //realtime DB
   const addUserToDB = async (uid, fid, data) => {
     await set(refDB(firebaseDB, `users/${uid}`), {
       uid: uid,
@@ -80,6 +147,11 @@ export const useFirebase = () => {
     });
   };
 
+  const getUserByIDFromDB = async (uid) => {
+    return await get(child(refDB(firebaseDB), `users/${uid}`));
+  };
+
+  //storage
   const uploadImageToStoregae = async (uid, image) => {
     const imageRef = refStorage(
       storage,
@@ -111,48 +183,29 @@ export const useFirebase = () => {
     });
   };
 
-  const getUserByIDFromDB = async (uid) => {
-    return await get(child(refDB(firebaseDB), `users/${uid}`));
-  };
-
-  const getUserByID = async (id) => {
-    const userRef = doc(fireStore, "users", id);
-    const res = await getDoc(userRef);
-    return res;
-  };
-
-  const getAllUsers = async () => {
-    return await getDocs(collection(fireStore, "users"));
-  };
-
   const getImageURL = async (path) => {
     return await getDownloadURL(refStorage(storage, path));
   };
 
-  const fetchUserImageFromStore = async (uid) => {
-    const userRef = query(
-      collection(fireStore, "users"),
-      where("id", "==", uid)
-    );
-    const findUsers = await getDocs(userRef);
-    findUsers.forEach(async (user) => {
-      return doc(fireStore, "users", user.id);
-    });
-  };
-
   return {
-    authenticateUser,
-    loginUser,
-    logoutUser,
     createUser,
+    loginUser,
+    authenticateUser,
+    logoutUser,
+
     addUserToStore,
-    addUserToDB,
-    uploadImageToStoregae,
-    uploadPOAToStoregae,
-    getUserByIDFromDB,
+    updateUserToStore,
+    updatePlayerToStore,
+    updateOwnerToStore,
     getUserByID,
     getAllUsers,
-    getImageURL,
     fetchUserImageFromStore,
+
+    addUserToDB,
+    getUserByIDFromDB,
+
+    uploadImageToStoregae,
+    uploadPOAToStoregae,
+    getImageURL,
   };
 };

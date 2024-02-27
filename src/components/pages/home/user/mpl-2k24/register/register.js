@@ -3,8 +3,11 @@ import "./register.css";
 import { Player } from "./player/player";
 import { Owner } from "./owner/owner";
 import { Button, ButtonGroup } from "react-bootstrap";
-export const Register = ({ profile }) => {
+import { useSelector } from "react-redux";
+export const Register = () => {
   const [value, setValue] = useState("player");
+
+  const profile = useSelector((state) => state.user.profile);
   const { played, basePrice, maxBidAmount } = profile;
   console.log(played);
   return (
