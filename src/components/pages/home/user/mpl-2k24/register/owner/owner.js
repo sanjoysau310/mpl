@@ -18,6 +18,8 @@ export const Owner = () => {
     pastTeam: "",
     interestTeams: "",
     maxBidAmount: "",
+    paymentMode: "",
+    upiID: "",
   });
 
   const teamNames = [
@@ -92,7 +94,7 @@ export const Owner = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    firebase.updateOwnerToStore(params.id,owner).then((res) => {
+    firebase.updateOwnerToStore(params.id, owner).then((res) => {
       console.log(res);
     });
   };
@@ -169,6 +171,29 @@ export const Owner = () => {
           onChange={handleChange}
         />
       </Form.Group>
+
+      <Form.Group controlId="formGridPassword" className="mb-3">
+        <Form.Label>Payment Mode</Form.Label>
+        <Form.Select
+          aria-label="Default select example"
+          name="paymentMode"
+          onChange={handleChange}>
+          <option value="">Select Payment Mode</option>
+          <option value="upi">UPI</option>
+          <option value="cash">Cash</option>
+        </Form.Select>
+      </Form.Group>
+      {owner.paymentMode === "upi" && (
+        <Form.Group className="mb-3" controlId="formGridAddress2">
+          <Form.Label>UPI ID</Form.Label>
+          <Form.Control
+            placeholder="Enter UPI ID"
+            name="upiID"
+            onChange={handleChange}
+            value={owner.upi}
+          />
+        </Form.Group>
+      )}
 
       {/* <Form.Group className="mb-3" id="formGridCheckbox">
         <Form.Check type="checkbox" label={"I accept the " + "T&C*"} />

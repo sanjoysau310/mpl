@@ -5,29 +5,29 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 
 import { RouterProvider } from "react-router-dom";
-import { useFirebase } from "./context/firebase";
 import { useEffect, useState } from "react";
 import { useCookies } from "./cookies/useCookies";
 import { router } from "./routes/router";
+import { useFirebase } from "./hooks/useFirebase";
+import { useSelector } from "react-redux";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const firebase = useFirebase();
+  const user = useSelector((state) => state.user.currentUser);
+  const isLoading = useSelector((state) => state.user.isLoading);
   const [adminAccess, setAdminAccess] = useState(false);
   const [userAccess, setUserAccess] = useState(false);
 
-  const { cookies, getCookie } = useCookies();
+  // const { cookies, getCookie } = useCookies();
 
-  console.log(cookies);
+  const auth = useAuth();
+
+  console.log(auth);
   //console.log(getCookie("currentUser"));
 
   useEffect(() => {
-    if (firebase != null) {
-      if (firebase.userProfile.role === "admin") setAdminAccess(true);
-      else if (firebase.userProfile.role === "user") setUserAccess(true);
-    } else {
-      setAdminAccess(false);
-      setUserAccess(false);
-    }
+    firebase.authenticateUser();
   }, []);
 
   useEffect(() => {

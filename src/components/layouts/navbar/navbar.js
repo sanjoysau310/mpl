@@ -1,11 +1,17 @@
 import React from "react";
 import "./navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useFirebase } from "../../../context/firebase";
+import { useFirebase } from "../../../hooks/useFirebase";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../../../store/slices/userSlice";
 export const Navbar = () => {
   const firebase = useFirebase();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
+  const { uid, email, accessToken, accessType } = user;
   const handleLogout = () => {
+    dispatch(removeUser());
     firebase.logoutUser();
     navigate("/login", { replace: true });
   };
@@ -67,7 +73,7 @@ export const Navbar = () => {
             Contact
           </NavLink>
         </li>
-        {!firebase.isLoggedIn ? (
+        {!accessToken ? (
           <li>
             <NavLink to="/login" className="login-button scrollto">
               Login

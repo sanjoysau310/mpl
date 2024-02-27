@@ -5,49 +5,55 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "./userRegister.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useFirebase } from "../../../context/firebase";
+
+import { RegisterForm } from "./registerForm";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "../../../firebase/firebaseConfig";
+import { useFirebase } from "../../../hooks/useFirebase";
+import { useDispatch } from "react-redux";
+import { authUser } from "../../../store/slices/userSlice";
 
 export const UserRegister = () => {
   let navigate = useNavigate();
   const firebase = useFirebase();
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
-  const [passwordType, setPasswordType] = useState("password");
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
 
-  const togglePassword = () => {
-    if (passwordType === "password") {
-      setPasswordType("text");
-      return;
-    }
-    setPasswordType("password");
-  };
-
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e, user) => {
     e.preventDefault();
 
-    const authResponse = await firebase.createUser(user.email, user.password);
+    // createUserWithEmailAndPassword(firebaseAuth,user.email, user.password).then(authResponse=>{
 
-    const firestoreResponse = await firebase.addUserToStore(
-      authResponse.user.uid,
-      user
-    );
-    console.log(firestoreResponse);
-    const dbrResponse = await firebase.addUserToDB(
-      authResponse.user.uid,
-      firestoreResponse.id,
-      user
-    );
-    console.log(dbrResponse);
-    //navigate("/login");
+    // })
+    await firebase
+      .createUser(user.email, user.password)
+      .then(async (addResponse) => {
+        await firebase
+          .addUserToStore(addResponse.user.uid, user)
+          .then(async (firestoreResponse) => {
+            await firebase
+              .addUserToDB(addResponse.user.uid, firestoreResponse.id, user)
+              .then(async (dbrResponse) => {
+                await firebase
+                  .loginUser(user.email, user.password)
+                  .then((authResponse) => {
+                    //dispatch(authUser(authResponse));
+                    console.log(authResponse);
+                  });
+              });
+          });
+      })
+      .catch((err) => alert(err));
+
+    // const authResponse = await firebase.createUser(user.email, user.password);
+    // const firestoreResponse = await firebase.addUserToStore(
+    //   authResponse.user.uid,
+    //   user
+    // );
+    // const dbrResponse = await firebase.addUserToDB(
+    //   authResponse.user.uid,
+    //   firestoreResponse.id,
+    //   user
+    // );
   };
   return (
     <section className="bg-light p-3 p-md-4 p-xl-5">
@@ -85,119 +91,31 @@ export const UserRegister = () => {
                         </div>
                       </div>
                       {/* <div className="row">
-                        <div className="col-12">
-                          <div className="d-flex gap-3 flex-column mt-3">
-                            <a
-                              href="#!"
-                              className="btn btn-lg btn-outline-dark">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={16}
-                                height={16}
-                                fill="currentColor"
-                                className="bi bi-google"
-                                viewBox="0 0 16 16">
-                                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
-                              </svg>
-                              <span className="ms-2 fs-6">
-                                Log in with Google
-                              </span>
-                            </a>
-                          </div>
-                          <p className="text-center mt-3 mb-3">
-                            Or sign in with
-                          </p>
-                        </div>
-                      </div> */}
-                      <form onSubmit={handleSubmit}>
-                        <div className="row gy-3 overflow-hidden">
-                          <div className="col-12">
-                            <div className="form-floating mb-2">
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="name"
-                                value={user.name}
-                                onChange={handleChange}
-                                id="fullName"
-                                placeholder="Full Name"
-                                required
-                              />
-                              <label htmlFor="fullName" className="form-label">
-                                Full Name
-                              </label>
-                            </div>
-                          </div>
-                          <div className="col-12">
-                            <div className="form-floating mb-2">
-                              <input
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                value={user.email}
-                                onChange={handleChange}
-                                id="email"
-                                placeholder="name@example.com"
-                                required
-                              />
-                              <label htmlFor="email" className="form-label">
-                                Email
-                              </label>
-                            </div>
-                          </div>
-                          <div className="col-12">
-                            <div className="form-floating mb-2">
-                              <input
-                                type={passwordType}
-                                className="form-control"
-                                name="password"
-                                value={user.password}
-                                onChange={handleChange}
-                                id="password"
-                                placeholder="Password"
-                                required
-                              />
-                              <label htmlFor="password" className="form-label">
-                                Password
-                              </label>
-                              {/* <i onClick={togglePassword}>
-                                {passwordType === "password" ? (
-                                  <FontAwesomeIcon icon={faEye} size="2x" />
-                                ) : (
-                                  <FontAwesomeIcon
-                                    icon={faEyeSlash}
-                                    size="2x"
-                                  />
-                                )}
-                              </i> */}
-                            </div>
-                          </div>
-                          <div className="col-12">
-                            <div className="form-floating mb-2">
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="phone"
-                                value={user.phone}
-                                onChange={handleChange}
-                                id="phone"
-                                placeholder="9922625153"
-                                required
-                              />
-                              <label htmlFor="phone" className="form-label">
-                                Phone Number
-                              </label>
-                            </div>
-                          </div>
-                          <div className="col-12">
-                            <div className="d-grid">
-                              <button className="login-btn" type="submit">
-                                Submit
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+                <div className="col-12">
+                  <div className="d-flex gap-3 flex-column mt-3">
+                    <a
+                      href="#!"
+                      className="btn btn-lg btn-outline-dark">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={16}
+                        height={16}
+                        fill="currentColor"
+                        className="bi bi-google"
+                        viewBox="0 0 16 16">
+                        <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                      </svg>
+                      <span className="ms-2 fs-6">
+                        Log in with Google
+                      </span>
+                    </a>
+                  </div>
+                  <p className="text-center mt-3 mb-3">
+                    Or sign in with
+                  </p>
+                </div>
+              </div> */}
+                      <RegisterForm handleSubmit={handleRegister} />
                       <div className="row">
                         <div className="col-12">
                           <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-3">
@@ -210,10 +128,10 @@ export const UserRegister = () => {
                               </Link>
                             </i>
                             {/* <a
-                              href="#!"
-                              className="link-secondary text-decoration-none">
-                              Forgot password
-                            </a> */}
+                          href="#!"
+                          className="link-secondary text-decoration-none">
+                          Forgot password
+                        </a> */}
                           </div>
                         </div>
                       </div>

@@ -8,25 +8,34 @@ import { UserProfileSettings } from "./userProfileSettings";
 import { UserProfileChangePassword } from "./userProfileChangePassword";
 import { Spinner, Tab, Tabs } from "react-bootstrap";
 import { UserProfilePOA } from "./userProfilePOA";
-import { useFirebase } from "../../../../../context/firebase";
 import { Mpl2k24 } from "../mpl-2k24/mpl2k24";
 import { Owner } from "../mpl-2k24/register/owner/owner";
 import { Register } from "../mpl-2k24/register/register";
+import { useDispatch, useSelector } from "react-redux";
+import { tabActions } from "../../../../../store/slices/tabSlice";
+import { useFirebase } from "../../../../../hooks/useFirebase";
+import { setProfile } from "../../../../../store/slices/userSlice";
 
 export const UserProfileHome = () => {
   let params = useParams();
   let navigate = useNavigate();
   const firebase = useFirebase();
-  const [profile, setProfile] = useState("");
+  //const [profile, setProfile] = useState("");
+
+  const key = useSelector((state) => state.tab.key);
+  const profile = useSelector((state) => state.user.profile);
+  const dispatch = useDispatch();
 
   const mpl2k24 = <Mpl2k24 />;
 
   useEffect(() => {
-    firebase.getUserByID(params.id).then((res) => setProfile(res.data()));
+    firebase.getUserByID(params.id).then((res) => {
+      dispatch(setProfile(res.data()));
+    });
   }, []);
-
-  const [key, setKey] = useState("Overview");
-
+  console.log(profile);
+  //const [key, setKey] = useState("Overview");
+  console.log(key);
   return (
     <>
       {profile === "" ? (
@@ -44,7 +53,7 @@ export const UserProfileHome = () => {
                   <Tabs
                     id="controlled-tab-example"
                     activeKey={key}
-                    onSelect={(k) => setKey(k)}>
+                    onSelect={(k) => dispatch(tabActions.changeTab(k))}>
                     <Tab eventKey="Overview" title="Overview">
                       <UserProfileOverview profile={profile} />
                     </Tab>
@@ -69,7 +78,7 @@ export const UserProfileHome = () => {
                       </div>
                     </Tab> */}
                     <Tab eventKey={mpl2k24} title={mpl2k24}>
-                      <Register />
+                      <Register profile={profile} />
                     </Tab>
                   </Tabs>
                 </div>

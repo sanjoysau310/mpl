@@ -56,9 +56,7 @@ export const FirebaseProvider = (props) => {
     onAuthStateChanged(firebaseAuth, (user) => {
       user ? setUser(user) : setUser("");
     });
-    // onAuthStateChanged(firebaseAuth, (user) => {
-    //   user ? setCookie("currentUser", user) : setCookie("currentUser", "");
-    // });
+    
     onValue(refDB(firebaseDB, `users/${user.uid}`), (res) =>
       setProfile(res.val())
     );

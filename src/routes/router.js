@@ -16,6 +16,7 @@ import { UserLogin } from "../components/pages/login/userLogin";
 import { UserRegister } from "../components/pages/register/userRegister";
 import { PrivateRoutes } from "./privateRoutes";
 import { UserProfileHome } from "../components/pages/home/user/profile/userProfileHome";
+import { UserProfileControl } from "../components/pages/home/user/profile/userProfileControl";
 
 export const router = createBrowserRouter([
   {
@@ -75,10 +76,12 @@ export const router = createBrowserRouter([
       // protected routes
       // { path: "playerHome", element: userAccess ? <UserHome /> : <Login /> },
       // { path: "playerHome/:id", element: <UserHome /> },
+
       {
         element: <PrivateRoutes />,
         children: [
-          { path: "playerHome/:id", element: <UserProfileHome /> },
+          // { path: "playerHome/:id", element: <UserProfileHome /> },
+          { path: "playerHome/:id", element: <UserProfileControl /> },
           { path: "adminHome", element: <Admin /> },
         ],
       },

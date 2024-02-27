@@ -5,21 +5,10 @@ import { Contact } from "../components/pages/contact/contact";
 import { Navigate, Outlet } from "react-router-dom";
 import { useFirebase } from "../context/firebase";
 import { useCookies } from "../cookies/useCookies";
-
-const useAuth = () => {
-  const firebase = useFirebase();
-
-  const { getCookie } = useCookies();
-  const user = firebase.isLoggedIn;
-  if (user) {
-    return true;
-  } else {
-    return false;
-  }
-};
+import { useAuth } from "../hooks/useAuth";
 
 export const PrivateRoutes = () => {
   const auth = useAuth();
 
-  return auth ? <Outlet /> : <Navigate to="/login" replace />;
+  return auth.isAuth ? <Outlet /> : <Navigate to="/login" replace />;
 };

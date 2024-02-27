@@ -13,6 +13,8 @@ export const Player = () => {
     played: "",
     pastTeam: "",
     basePrice: "",
+    paymentMode: "",
+    upiID: "",
   });
   const [disabledBtn, setDisabledBtn] = useState(true);
   useEffect(() => {
@@ -113,6 +115,28 @@ export const Player = () => {
         />
       </Form.Group>
 
+      <Form.Group controlId="formGridPassword" className="mb-3">
+        <Form.Label>Payment Mode</Form.Label>
+        <Form.Select
+          aria-label="Default select example"
+          name="paymentMode"
+          onChange={handleChange}>
+          <option value="">Select Payment Mode</option>
+          <option value="upi">UPI</option>
+          <option value="cash">Cash</option>
+        </Form.Select>
+      </Form.Group>
+      {player.paymentMode === "upi" && (
+        <Form.Group className="mb-3" controlId="formGridAddress2">
+          <Form.Label>UPI ID</Form.Label>
+          <Form.Control
+            placeholder="Enter UPI ID"
+            name="upiID"
+            onChange={handleChange}
+            value={player.upi}
+          />
+        </Form.Group>
+      )}
       {/* <Form.Group className="mb-3" id="formGridCheckbox">
         <Form.Check type="checkbox" label={"I accept the " + "T&C*"} />
       </Form.Group> */}

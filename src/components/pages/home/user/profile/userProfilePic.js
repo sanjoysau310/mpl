@@ -3,14 +3,19 @@ import pp from "../../../../../assets/images/home/pp.png";
 import login from "../../../../../assets/images/backgrounds/login/login1.jpg";
 import { UserPicture } from "../../../players/player/userPicture";
 import { UploadImage } from "../../../players/profile/crop/uploadImage";
-import { useFirebase } from "../../../../../context/firebase";
 import { useNavigate, useParams } from "react-router-dom";
+import { useFirebase } from "../../../../../hooks/useFirebase";
+import { useDispatch, useSelector } from "react-redux";
 
-export const UserProfilePic = ({ profile }) => {
+export const UserProfilePic = () => {
   let params = useParams();
   let navigate = useNavigate();
   const firebase = useFirebase();
   const [pImage, setpImage] = useState("");
+
+  const profile = useSelector((state) => state.user.profile);
+  const dispatch = useDispatch();
+
   const { name, uid, imageURL, played } = profile;
 
   const uploadImageData = () => {

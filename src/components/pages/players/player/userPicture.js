@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useFirebase } from "../../../../context/firebase";
 import { Spinner } from "../../../layouts/spinner";
 import { ImageModal } from "../../../../utils/modals/imageModal";
+import { useFirebase } from "../../../../hooks/useFirebase";
 
 export const UserPicture = ({ imageURL }) => {
   const firebase = useFirebase();

@@ -11,14 +11,19 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import reportWebVitals from "./reportWebVitals";
 import { FirebaseProvider } from "./context/firebase";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <FirebaseProvider>
+  <>
+    {/* <FirebaseProvider>
+  <App />
+</FirebaseProvider> */}
+    <Provider store={store}>
       <App />
-    </FirebaseProvider>
-  </React.StrictMode>
+    </Provider>
+  </>
 );
 
 reportWebVitals();
