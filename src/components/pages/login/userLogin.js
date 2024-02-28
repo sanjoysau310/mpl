@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { GoogleLogin } from "./googleLogin";
-import { Spinner } from "../../layouts/spinner";
+import { Spinner } from "../../layouts/loading";
 import { useDispatch, useSelector } from "react-redux";
 import { authUser, setLoading } from "../../../store/slices/userSlice";
 import { LoginForm } from "./loginForm";
@@ -32,20 +32,6 @@ export const UserLogin = () => {
     e.preventDefault();
     dispatch(setLoading(true));
     await firebase.loginUser(user.email, user.password);
-
-    // const authResponse = await firebase.loginUser(user.email, user.password);
-    // console.log(authResponse);
-    // dispatch(
-    //   authUser({
-    //     id: authResponse.user.uid,
-    //     email: authResponse.user.email,
-    //     token: authResponse.user.accessToken,
-    //   })
-    // );
-    // const dbResponse = await firebase.getUserByIDFromDB(authResponse.user.uid);
-    //console.log(dbResponse.val());
-    //dbResponse.val() ? setLoading(false) : setLoading(true);
-    //setUserProfile(dbResponse.val());
   };
 
   return (

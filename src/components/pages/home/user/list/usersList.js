@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./playersList.css";
-import { useFirebase } from "../../../../context/firebase";
-import { PlayerCard } from "./playerCard";
-import { Spinner } from "../../../layouts/spinner";
+import "./usersList.css";
+import { UserCard } from "./userCard";
+import { Loading } from "../../../../layouts/loading";
+import { useFirebase } from "../../../../../hooks/firebase/useFirebase";
 
-export const PlayersList = () => {
+export const UsersList = () => {
   const firebase = useFirebase();
   const [profiles, setProfiles] = useState("");
   useEffect(() => {
@@ -14,7 +14,7 @@ export const PlayersList = () => {
   return (
     <>
       {profiles === "" ? (
-        <Spinner />
+        <Loading />
       ) : (
         <section id="schedule" className="section-with-bg">
           <div className="container" data-aos="fade-up">
@@ -65,7 +65,7 @@ export const PlayersList = () => {
                 className="col-lg-9 tab-pane fade show active"
                 id="day-1">
                 {profiles.map((profile) => {
-                  return <PlayerCard key={profile.id} profile={profile} />;
+                  return <UserCard key={profile.id} profile={profile} />;
                 })}
               </div>
             </div>

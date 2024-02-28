@@ -4,13 +4,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../../hooks/firebase/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../../store/slices/userSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const Navbar = () => {
   const firebase = useFirebase();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
-  const { uid, email, accessToken, accessType } = user;
+  const { uid, name, email, accessToken, accessType } = user;
   const handleLogout = async () => {
     dispatch(removeUser());
     await firebase.logoutUser().then(() => {
@@ -77,18 +80,33 @@ export const Navbar = () => {
         </li>
         {!accessToken ? (
           <li>
-            <NavLink to="/login" className="login-button scrollto">
-              Login
+            <NavLink to="/login" className="nav-link scrollto">
+              <FontAwesomeIcon icon={faRightFromBracket} size="1x" />
             </NavLink>
           </li>
         ) : (
-          <li>
-            <NavLink
-              to="/login"
-              className="login-button scrollto"
-              onClick={handleLogout}>
-              Logout
-            </NavLink>
+          <li className="dropdown">
+            <a href="#">
+              <NavLink
+                to="/login"
+                //className="login-button scrollto"
+                className="nav-link scrollto"
+                onClick={handleLogout}>
+                <FontAwesomeIcon icon={faUser} size="1x" /> {name}
+              </NavLink>
+            </a>
+            <ul>
+              <li>
+                <a href="#">My Account Settings</a>
+              </li>
+
+              <li>
+                <a href="#">Admin Settings</a>
+              </li>
+              <li>
+                <a href="#">Logout</a>
+              </li>
+            </ul>
           </li>
         )}
       </ul>

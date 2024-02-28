@@ -53,7 +53,7 @@ export const useFirebase = () => {
         getUserByIDFromDB(user.uid).then((res) => {
           dispatch(authAccess(res.val()));
         });
-        dispatch(setLoading(false));
+        //dispatch(setLoading(false));
       } else console.log("user not logged in");
     });
   };

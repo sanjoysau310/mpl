@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "../../../../../layouts/spinner";
+import { Loading } from "../../../../../layouts/loading";
 import { ImageModal } from "../../../../../../utils/modals/imageModal";
 import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
+import { Image } from "react-bootstrap";
 
 export const UserPicture = ({ imageURL }) => {
   const firebase = useFirebase();
@@ -13,14 +14,15 @@ export const UserPicture = ({ imageURL }) => {
   return (
     <>
       {url ? (
-        <img
+        <Image
           src={url}
           alt="User"
-          className="img-fluid"
+          //className="img-fluid"
           onClick={() => setModalShow(true)}
+          rounded
         />
       ) : (
-        <Spinner />
+        <Loading />
       )}
       <ImageModal
         show={modalShow}

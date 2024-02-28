@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useFirebase } from "../../../../context/firebase";
 import { Link } from "react-router-dom";
-import pp from "../../../../assets/images/home/pp.png";
+import pp from "../../../../../assets/images/home/pp.png";
+import { useFirebase } from "../../../../../hooks/firebase/useFirebase";
 
-export const PlayerCard = ({ profile }) => {
+export const UserCard = ({ profile }) => {
   //console.log(user.id);
   const { uid, name, imageURL } = profile.data();
   const firebase = useFirebase();

@@ -6,7 +6,7 @@ import { UserProfileOverview } from "../overview/userProfileOverview";
 import { UserProfileEdit } from "../edit/userProfileEdit";
 import { UserProfileSettings } from "../settings/userProfileSettings";
 import { UserProfileChangePassword } from "../settings/userProfileChangePassword";
-import { Spinner, Tab, Tabs } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 import { UserProfilePOA } from "../poa/userProfilePOA";
 import { Mpl2k24 } from "../../mpl-2k24/mpl2k24";
 import { Owner } from "../../mpl-2k24/register/owner/owner";
@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { tabActions } from "../../../../../../store/slices/tabSlice";
 import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 import { setProfile } from "../../../../../../store/slices/userSlice";
+import { Loading } from "../../../../../layouts/loading";
 
 export const UserProfileHome = () => {
   let params = useParams();
@@ -39,7 +40,7 @@ export const UserProfileHome = () => {
   return (
     <>
       {profile === "" ? (
-        <Spinner />
+        <Loading />
       ) : (
         <section className="section profile">
           <div className="container">

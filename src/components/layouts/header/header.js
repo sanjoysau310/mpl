@@ -11,6 +11,7 @@ import { Navbar } from "../navbar/navbar";
 
 import mplLogo from "../../../assets/images/logos/mpl.png";
 import OffcanvasExample from "../navbar/mplNav";
+import NavbarTest from "../navbar/navbar-test";
 
 export const Header = () => {
   return (
@@ -47,7 +48,8 @@ export const Header = () => {
             <img src={mplLogo} alt="MPL" title="MPL" />
           </NavLink>
         </div>
-        <Navbar />
+        {/* <Navbar /> */}
+        <NavbarTest />
         {/* <OffcanvasExample /> */}
       </div>
     </header>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "../../../../../layouts/spinner";
+import { Loading } from "../../../../../layouts/loading";
 import { ImageModal } from "../../../../../../utils/modals/imageModal";
 import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 
-export const UserPOA = ({ poaURL}) => {
+export const UserPOA = ({ poaURL }) => {
   const firebase = useFirebase();
   const [url, setURL] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -22,7 +22,7 @@ export const UserPOA = ({ poaURL}) => {
           />
         </>
       ) : (
-        <Spinner />
+        <Loading />
       )}
 
       <ImageModal

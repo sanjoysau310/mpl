@@ -28,7 +28,7 @@ export const Contact = () => {
                 <FontAwesomeIcon icon={faLocationDot} />
               </i>
               <h3>Address</h3>
-              <address>AKatjunagar Play Ground</address>
+              <address>Katjunagar Play Ground</address>
             </div>
           </div>
           <div className="col-md-4">

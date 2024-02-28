@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   currentUser: {
     uid: null,
+    name: null,
     email: null,
     accessToken: null,
     accessType: null,
@@ -23,13 +24,16 @@ const userSlice = createSlice({
       state.currentUser.accessToken = action.payload.accessToken;
     },
     authAccess: (state, action) => {
+      state.currentUser.name = action.payload.name;
       state.currentUser.accessType = action.payload.accessType;
       state.currentUser.fid = action.payload.fid;
     },
     removeUser: (state) => {
       state.currentUser.uid = null;
+      state.currentUser.name = null;
       state.currentUser.email = null;
       state.currentUser.accessToken = null;
+      state.currentUser.accessType = null;
     },
     setProfile: (state, action) => {
       state.profile = action.payload;

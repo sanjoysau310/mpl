@@ -6,6 +6,7 @@ import { UploadImage } from "./crop/uploadImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 import { useDispatch, useSelector } from "react-redux";
+import { Image } from "react-bootstrap";
 
 export const UserProfilePic = () => {
   let params = useParams();
@@ -31,10 +32,11 @@ export const UserProfilePic = () => {
         {imageURL !== "" ? (
           <UserPicture imageURL={imageURL} />
         ) : (
-          <img
+          <Image
             src={pImage === "" ? pp : URL.createObjectURL(pImage)}
             alt="User"
-            className="img-fluid"
+            //className="img-fluid"
+            rounded
           />
         )}
         <hr />
