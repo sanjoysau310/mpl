@@ -13,6 +13,7 @@ import { UserRegister } from "../components/pages/register/userRegister";
 import { PrivateRoutes } from "./privateRoutes";
 import { UserProfileControl } from "../components/pages/home/user/profile/main/userProfileControl";
 import { UsersList } from "../components/pages/home/user/list/usersList";
+import { Schedule } from "../components/pages/schedule/schedule";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "events",
         element: <Events />,
+      },
+      {
+        path: "schedule",
+        element: <Schedule />,
       },
       {
         path: "gallery",

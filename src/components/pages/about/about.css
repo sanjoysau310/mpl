@@ -10,6 +10,10 @@
     padding: 60px 0 40px 0;
 }
 
+.see-more-less {
+    color: #f82249;
+}
+
 @media (min-width: 1024px) {
     #about {
         background-attachment: fixed;
