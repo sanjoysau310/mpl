@@ -10,7 +10,7 @@ const initialState = {
     fid: null,
   },
   profile: "",
-  isLoading: true,
+  isLoading: false,
 };
 
 const userSlice = createSlice({

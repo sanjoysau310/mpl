@@ -2,10 +2,7 @@ import React from "react";
 
 export const MatchDay2 = () => {
   return (
-    <div
-      role="tabpanel"
-      className="col-lg-9 tab-pane fade show active"
-      id="day-1">
+    <>
       <div className="row schedule-item">
         <div className="col-md-2">
           <time>02:00 PM</time>
@@ -107,6 +104,6 @@ export const MatchDay2 = () => {
         </div>
         <p className="text-center">match</p>
       </div>
-    </div>
+    </>
   );
 };

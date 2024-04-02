@@ -16,6 +16,7 @@ import { tabActions } from "../../../../../../store/slices/tabSlice";
 import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 import { setProfile } from "../../../../../../store/slices/userSlice";
 import { Loading } from "../../../../../layouts/loading";
+import { UserPOA } from "../poa/userPOA";
 
 export const UserProfileHome = () => {
   let params = useParams();
@@ -55,29 +56,28 @@ export const UserProfileHome = () => {
                     id="controlled-tab-example"
                     activeKey={key}
                     onSelect={(k) => dispatch(tabActions.changeTab(k))}>
-                    <Tab eventKey="Overview" title="Overview">
-                      <UserProfileOverview />
-                    </Tab>
-                    <Tab eventKey="Edit Profile" title="Edit Profile">
-                      <UserProfileEdit />
-                    </Tab>
-                    <Tab
-                      eventKey="Upload Address Proof"
-                      title="Upload Address Proof">
-                      <UserProfilePOA />
-                    </Tab>
-                    <Tab eventKey="Change Password" title="Change Password">
-                      {/* <UserProfileChangePassword /> */}
-                      <div className="mt-5 mb-5 p-5 text-center">
-                        <h5>Coming Soon</h5>
-                      </div>
-                    </Tab>
-                    {/* <Tab eventKey="Settings" title="Settings">
-                      <UserProfileSettings />
-                      <div className="mt-5 mb-5 p-5 text-center">
-                        <h5>Coming Soon</h5>
-                      </div>
-                    </Tab> */}
+                    {profile.address != "" ? (
+                      <Tab eventKey="Overview" title="Overview">
+                        <UserProfileOverview />
+                      </Tab>
+                    ) : (
+                      <Tab eventKey="Edit Profile" title="Edit Profile">
+                        <UserProfileEdit />
+                      </Tab>
+                    )}
+                    {profile.poaURL != "" ? (
+                      <Tab eventKey="Address Proof" title="Address Proof">
+                        <div className="d-flex flex-column align-items-center mt-5 mb-3">
+                          <UserPOA poaURL={profile.poaURL} />
+                        </div>
+                      </Tab>
+                    ) : (
+                      <Tab
+                        eventKey="Upload Address Proof"
+                        title="Upload Address Proof">
+                        <UserProfilePOA />
+                      </Tab>
+                    )}
                     <Tab eventKey={mpl2k24} title={mpl2k24}>
                       <Register />
                     </Tab>

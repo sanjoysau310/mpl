@@ -14,6 +14,8 @@ import { PrivateRoutes } from "./privateRoutes";
 import { UserProfileControl } from "../components/pages/home/user/profile/main/userProfileControl";
 import { UsersList } from "../components/pages/home/user/list/usersList";
 import { Schedule } from "../components/pages/schedule/schedule";
+import { UserProfileHome } from "../components/pages/home/user/profile/main/userProfileHome";
+import { UserAccount } from "../components/pages/home/user/profile/account/userAccount";
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +70,8 @@ export const router = createBrowserRouter([
       {
         element: <PrivateRoutes />,
         children: [
-          { path: "playerHome/:id", element: <UserProfileControl /> },
+          { path: "playerHome/:id", element: <UserProfileHome /> },
+          { path: "userAccount/:id", element: <UserAccount /> },
           { path: "adminHome", element: <Admin /> },
         ],
       },

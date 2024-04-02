@@ -2,10 +2,7 @@ import React from "react";
 
 export const PointsTable = () => {
   return (
-    <div
-      role="tabpanel"
-      className="col-lg-9 tab-pane fade show active"
-      id="day-1">
+    <>
       <div className="row schedule-item">
         <div className="col-md-5">
           <h4>Teams</h4>
@@ -62,6 +59,6 @@ export const PointsTable = () => {
         <div className="col-md-1">4</div>
         <div className="col-md-1">+0.76</div>
       </div>
-    </div>
+    </>
   );
 };

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { GoogleLogin } from "./googleLogin";
-import { Spinner } from "../../layouts/loading";
+import { Loading, Spinner } from "../../layouts/loading";
 import { useDispatch, useSelector } from "react-redux";
 import { authUser, setLoading } from "../../../store/slices/userSlice";
 import { LoginForm } from "./loginForm";
@@ -19,6 +19,7 @@ export const UserLogin = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
   const user = useSelector((state) => state.user.currentUser);
+  const isLoading = useSelector((state) => state.user.isLoading);
   useEffect(() => {
     if (auth != "") {
       if (auth.accessType === "user")
@@ -35,43 +36,47 @@ export const UserLogin = () => {
   };
 
   return (
-    <section className="bg-light p-3 p-md-4 p-xl-5">
-      <div className="container position-relative mt-3">
-        <div className="row justify-content-center">
-          <div className="col-12">
-            <div className="card border-light-subtle shadow-sm">
-              <div className="row g-0">
-                <div className="col-12 col-md-6">
-                  <img
-                    className="img-fluid rounded-start w-100 h-100 object-fit-cover"
-                    loading="lazy"
-                    src={login}
-                    alt="Welcome back you've been missed!"
-                  />
-                </div>
-                <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                  <div className="col-12 col-lg-11 col-xl-10">
-                    <div className="card-body ">
-                      <div className="row">
-                        <div className="col-12">
-                          <div className="mb-4">
-                            <div className="text-center mb-4">
-                              <a href="#!">
-                                <img
-                                  src={mplLogo}
-                                  alt="BootstrapBrain Logo"
-                                  width="175"
-                                  height="105"
-                                />
-                              </a>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <section className="bg-light p-3 p-md-4 p-xl-5">
+          <div className="container position-relative mt-3">
+            <div className="row justify-content-center">
+              <div className="col-12">
+                <div className="card border-light-subtle shadow-sm">
+                  <div className="row g-0">
+                    <div className="col-12 col-md-6">
+                      <img
+                        className="img-fluid rounded-start w-100 h-100 object-fit-cover"
+                        loading="lazy"
+                        src={login}
+                        alt="Welcome back you've been missed!"
+                      />
+                    </div>
+                    <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                      <div className="col-12 col-lg-11 col-xl-10">
+                        <div className="card-body ">
+                          <div className="row">
+                            <div className="col-12">
+                              <div className="mb-4">
+                                <div className="text-center mb-4">
+                                  <a href="#!">
+                                    <img
+                                      src={mplLogo}
+                                      alt="BootstrapBrain Logo"
+                                      width="175"
+                                      height="105"
+                                    />
+                                  </a>
+                                </div>
+                                <h4 className="text-center">
+                                  Welcome back you've been missed!
+                                </h4>
+                              </div>
                             </div>
-                            <h4 className="text-center">
-                              Welcome back you've been missed!
-                            </h4>
                           </div>
-                        </div>
-                      </div>
-                      {/* <div className="row">
+                          {/* <div className="row">
                         <div className="col-12">
                           <div className="d-flex gap-3 flex-column mt-3">
                             <a
@@ -96,23 +101,25 @@ export const UserLogin = () => {
                           </p>
                         </div>
                       </div> */}
-                      <LoginForm handleSubmit={handleLogin} />
-                      <div className="row">
-                        <div className="col-12">
-                          <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-5">
-                            Not a member yet?
-                            <i className="link">
-                              <Link
-                                to="/register"
-                                className="text-decoration-none">
-                                Create new account
-                              </Link>
-                            </i>
-                            {/* <a
+                          <LoginForm handleSubmit={handleLogin} />
+                          <div className="row">
+                            <div className="col-12">
+                              <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center mt-5">
+                                Not a member yet?
+                                <i className="link">
+                                  <Link
+                                    to="/register"
+                                    className="text-decoration-none">
+                                    Create new account
+                                  </Link>
+                                </i>
+                                {/* <a
                               href="#!"
                               className="link-secondary text-decoration-none">
                               Forgot password
                             </a> */}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -122,8 +129,8 @@ export const UserLogin = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 };

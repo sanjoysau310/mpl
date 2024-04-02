@@ -4,6 +4,7 @@ import "./index.css";
 import "./assets/css/styles.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
+import "yet-another-react-lightbox/styles.css";
 // import "font-awesome/css/font-awesome.min.css";
 // import "@fortawesome/fontawesome-svg-core/styles.css";
 // import { config } from "@fortawesome/fontawesome-svg-core";

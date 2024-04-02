@@ -6,6 +6,25 @@ import { PointsTable } from "./pointstable";
 import { PointsTableMobile } from "./pointstable-mobile";
 export const Schedule = () => {
   const [matchDay, setMatchDay] = useState(1);
+  let pageContent;
+
+  switch (matchDay) {
+    case 1:
+      pageContent = <MatchDay1 />;
+      break;
+    case 2:
+      pageContent = <MatchDay2 />;
+      break;
+    case 3:
+      pageContent = <PointsTableMobile />;
+      break;
+    case 4:
+      pageContent = <PointsTable />;
+      break;
+    default:
+      pageContent = <MatchDay1 />;
+  }
+
   return (
     <section id="schedule" className="section-with-bg">
       <div className="container" data-aos="fade-up">
@@ -14,7 +33,7 @@ export const Schedule = () => {
           <p>Here is our event schedule</p>
         </div>
         <ul
-          className="tabs"
+          className="tabs justify-content-center"
           role="tablist"
           data-aos="fade-up"
           data-aos-delay={100}>
@@ -48,6 +67,16 @@ export const Schedule = () => {
               Points Table
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              className={`tab${matchDay === 4 && " active"}`}
+              href="#day-3"
+              role="tab"
+              data-bs-toggle="tab"
+              onClick={() => setMatchDay(4)}>
+              Stats
+            </a>
+          </li>
         </ul>
         {/* <h3 className="sub-heading">
           <p>Group A: Team A1 Team A2 Team A3 Team A4</p>
@@ -57,14 +86,11 @@ export const Schedule = () => {
           className="tab-content row justify-content-center"
           data-aos="fade-up"
           data-aos-delay={200}>
-          {matchDay === 1 ? (
-            <MatchDay1 />
-          ) : matchDay === 2 ? (
-            <MatchDay2 />
-          ) : (
-            // <PointsTable />
-            <PointsTableMobile />
-          )}
+          <div
+            role="tabpanel"
+            className="col-lg-9 tab-pane fade show active justify-content-center">
+            {pageContent}
+          </div>
         </div>
       </div>
     </section>

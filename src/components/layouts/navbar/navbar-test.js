@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useFirebase } from "../../../hooks/firebase/useFirebase";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../../store/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +16,7 @@ import {
 import { useState } from "react";
 
 function NavbarTest() {
+  let params = useParams();
   const firebase = useFirebase();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -132,9 +133,23 @@ function NavbarTest() {
                   title={name}
                   id="collapsible-nav-dropdown"
                   onClick={() => setCollapsed(false)}>
-                  <NavDropdown.Item>My Account Settings</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <NavLink
+                      to={"/userAccount/" + params.id}
+                      //className="login-button scrollto"
+                      className="nav-link scrollto">
+                      My Account
+                    </NavLink>
+                  </NavDropdown.Item>
                   {accessType === "admin" && (
-                    <NavDropdown.Item>Admin Settings</NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <NavLink
+                        to="/admin"
+                        //className="login-button scrollto"
+                        className="nav-link scrollto">
+                        Admin Settings
+                      </NavLink>
+                    </NavDropdown.Item>
                   )}
                   <NavDropdown.Divider />
                   <NavDropdown.Item>

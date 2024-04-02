@@ -40,6 +40,7 @@ export const Gallery = () => {
                 className="img-fluid"
                 alt
                 style={{ width: "50rem" }}
+                o
               />
               {/* <img
                   src={images[index + 1].path}

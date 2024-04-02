@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./galleryFilter.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Lightbox from "yet-another-react-lightbox";
 
 export const GalleryFilter = ({ images }) => {
   const [filter, setFilter] = useState("all");
+  const [open, setOpen] = useState(false);
   return (
     <div className="mt-5">
       <div className="row" data-aos="fade-up" data-aos-delay={100}>
@@ -56,13 +58,17 @@ export const GalleryFilter = ({ images }) => {
                     <h4>{image.title}</h4>
                     <p>{image.title}</p>
                     <div className="gallery-links">
-                      <a
+                      {/* <a
                         href={image.path}
                         data-gallery="galleryGallery"
                         className="portfokio-lightbox"
                         title="App 1">
-                        <FontAwesomeIcon icon={faPlus} />
-                      </a>
+                        
+                      </a> */}
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        onClick={() => setOpen(true)}
+                      />
                       {/* <a href="gallery-details.html" title="More Details">
                           <i className="fa fa-link" />
                         </a> */}
@@ -74,6 +80,7 @@ export const GalleryFilter = ({ images }) => {
           );
         })}
       </div>
+      <Lightbox open={open} close={() => setOpen(false)} slides={images} />
     </div>
   );
 };
