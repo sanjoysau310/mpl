@@ -17,6 +17,8 @@ import { Schedule } from "../components/pages/schedule/schedule";
 import { UserProfileHome } from "../components/pages/home/user/profile/main/userProfileHome";
 import { UserAccount } from "../components/pages/home/user/profile/account/userAccount";
 
+import { Main } from "../components/pages/home/user/profile/player/main";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "player",
+        element: <Main />,
       },
       {
         path: "events",

@@ -70,6 +70,14 @@ function NavbarTest() {
             </Nav.Link>
             <Nav.Link href="#about">
               <NavLink
+                to="/player"
+                className="nav-link scrollto"
+                onClick={handleToggle}>
+                Player
+              </NavLink>
+            </Nav.Link>
+            <Nav.Link href="#about">
+              <NavLink
                 to="/events"
                 className="nav-link scrollto"
                 onClick={handleToggle}>
