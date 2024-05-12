@@ -68,15 +68,15 @@ function NavbarTest() {
                 About
               </NavLink>
             </Nav.Link>
-            <Nav.Link href="#about">
+            <Nav.Link href="#user">
               <NavLink
-                to="/player"
+                to="/user"
                 className="nav-link scrollto"
                 onClick={handleToggle}>
-                Player
+                User
               </NavLink>
             </Nav.Link>
-            <Nav.Link href="#about">
+            <Nav.Link href="#Events">
               <NavLink
                 to="/events"
                 className="nav-link scrollto"
@@ -84,7 +84,7 @@ function NavbarTest() {
                 Events
               </NavLink>
             </Nav.Link>
-            <Nav.Link href="#about">
+            <Nav.Link href="#Schedule">
               <NavLink
                 to="/schedule"
                 className="nav-link scrollto"
@@ -92,7 +92,7 @@ function NavbarTest() {
                 Schedule
               </NavLink>
             </Nav.Link>
-            <Nav.Link href="#about">
+            <Nav.Link href="#Gallery">
               <NavLink
                 to="/gallery"
                 className="nav-link scrollto"
@@ -100,7 +100,7 @@ function NavbarTest() {
                 Gallery
               </NavLink>
             </Nav.Link>
-            <Nav.Link href="#about">
+            <Nav.Link href="#Sponsors">
               <NavLink
                 to="/sponsors"
                 className="nav-link scrollto"
@@ -108,7 +108,7 @@ function NavbarTest() {
                 Sponsors
               </NavLink>
             </Nav.Link>
-            <Nav.Link href="#about">
+            <Nav.Link href="#contact">
               <NavLink
                 to="/contact"
                 className="nav-link scrollto"
@@ -118,12 +118,12 @@ function NavbarTest() {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#players">
+            <Nav.Link href="#users">
               <NavLink
-                to="/players"
+                to="/users"
                 className="nav-link scrollto"
                 onClick={handleToggle}>
-                Players
+                Users
               </NavLink>
             </Nav.Link>
             <Nav.Link eventKey={2} href="#auth">
@@ -141,14 +141,14 @@ function NavbarTest() {
                   title={name}
                   id="collapsible-nav-dropdown"
                   onClick={() => setCollapsed(false)}>
-                  <NavDropdown.Item>
+                  {/* <NavDropdown.Item>
                     <NavLink
                       to={"/userAccount/" + params.id}
                       //className="login-button scrollto"
                       className="nav-link scrollto">
                       My Account
                     </NavLink>
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
                   {accessType === "admin" && (
                     <NavDropdown.Item>
                       <NavLink

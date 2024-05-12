@@ -11,9 +11,9 @@ export const Register = () => {
   const { played, basePrice, maxBidAmount } = profile;
   console.log(played);
   return (
-    <div className="row p-5">
+    <div className="row">
       {played != "" ? (
-        <div className="mt-5 mb-5 p-5 text-center">
+        <div className="mt-5 mb-5 p-3 text-center">
           <h5>
             You have already registered as a{" "}
             {(basePrice && "Player") || (maxBidAmount && "Team Owner")}
@@ -41,7 +41,7 @@ export const Register = () => {
               </Button>
             </ButtonGroup>
           </div>
-          <div className="row mt-5">
+          <div className="row mt-3">
             <div className="col">
               {value === "player" ? <Player /> : <Owner />}
             </div>

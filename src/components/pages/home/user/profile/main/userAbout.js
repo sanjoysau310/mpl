@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-export const PlayerAbout = () => {
+export const UserAbout = () => {
+  const profile = useSelector((state) => state.user.profile);
+  const { email, name, uid, phone, role, batting, bowling, dob, age, address } =
+    profile;
   return (
     <>
       <table className="table table-profile">
@@ -12,15 +16,15 @@ export const PlayerAbout = () => {
         <tbody>
           <tr>
             <td className="field">Birth of Date</td>
-            <td className="value">November 4, 1989</td>
+            <td className="value">{dob}</td>
           </tr>
           <tr>
             <td className="field">Age</td>
-            <td className="value">0</td>
+            <td className="value">{age}</td>
           </tr>
           <tr>
             <td className="field">UPI ID</td>
-            <td className="value">3336@upi</td>
+            <td className="value">NA</td>
           </tr>
         </tbody>
       </table>
@@ -35,26 +39,22 @@ export const PlayerAbout = () => {
             <td className="field">Mobile Phones</td>
             <td className="value">
               <div className="m-b-5">
-                <b>Contact</b>-<span className="text-muted">+91-999999999</span>
+                {/* <b>Contact</b>-<span className="text-muted">{phone}</span> */}
+                {phone}
               </div>
-              <div>
+              {/* <div>
                 <b>WhatsApp</b>-<span className="text-muted">+91-88888888</span>
-              </div>
+              </div> */}
             </td>
           </tr>
           <tr>
             <td className="field">Email</td>
-            <td className="value">admin@mpl.com</td>
+            <td className="value">{email}</td>
           </tr>
 
           <tr>
             <td className="field">Address</td>
-            <td className="value">
-              Twitter, Inc. <br />
-              1355 Market Street, Suite 900
-              <br />
-              San Francisco, CA 94103
-            </td>
+            <td className="value">{address}</td>
           </tr>
         </tbody>
       </table>

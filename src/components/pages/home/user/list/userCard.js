@@ -20,13 +20,11 @@ export const UserCard = ({ profile }) => {
         </div>
       </div>
       <div className="col-md-8">
-        <h4>
-          {name} <span>Brenden Legros</span>
-        </h4>
-        <p>Facere provident incidunt quos voluptas.</p>
+        <h4>{name}</h4>
+        <p>All Rounder</p>
       </div>
       <div className="col-md-2">
-        <Link to={`/playerHome/${profile.id}`}>
+        <Link to={`/userHome/${profile.id}`}>
           <button className="btn btn-secondary">View</button>
         </Link>
       </div>

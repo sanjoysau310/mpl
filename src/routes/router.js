@@ -11,13 +11,11 @@ import { Admin } from "../components/pages/home/admin/admin";
 import { UserLogin } from "../components/pages/login/userLogin";
 import { UserRegister } from "../components/pages/register/userRegister";
 import { PrivateRoutes } from "./privateRoutes";
-import { UserProfileControl } from "../components/pages/home/user/profile/main/userProfileControl";
 import { UsersList } from "../components/pages/home/user/list/usersList";
 import { Schedule } from "../components/pages/schedule/schedule";
 import { UserProfileHome } from "../components/pages/home/user/profile/main/userProfileHome";
 import { UserAccount } from "../components/pages/home/user/profile/account/userAccount";
-
-import { Main } from "../components/pages/home/user/profile/player/main";
+import { UserProfileMain } from "../components/pages/home/user/profile/main/userProfileMain";
 
 export const router = createBrowserRouter([
   {
@@ -34,8 +32,8 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "player",
-        element: <Main />,
+        path: "user",
+        element: <UserProfileMain />,
       },
       {
         path: "events",
@@ -50,7 +48,7 @@ export const router = createBrowserRouter([
         element: <Gallery />,
       },
       {
-        path: "players",
+        path: "users",
         element: <UsersList />,
       },
       {
@@ -76,7 +74,7 @@ export const router = createBrowserRouter([
       {
         element: <PrivateRoutes />,
         children: [
-          { path: "playerHome/:id", element: <UserProfileHome /> },
+          { path: "userHome/:id", element: <UserProfileMain /> },
           { path: "userAccount/:id", element: <UserAccount /> },
           { path: "adminHome", element: <Admin /> },
         ],

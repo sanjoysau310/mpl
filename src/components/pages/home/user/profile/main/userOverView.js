@@ -1,6 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-export const PlayerOverView = () => {
+export const UserOverView = () => {
+  const profile = useSelector((state) => state.user.profile);
+  const { email, name, uid, phone, role, batting, bowling, age, address } =
+    profile;
+
   return (
     <table className="table table-profile">
       <thead>
@@ -13,12 +18,12 @@ export const PlayerOverView = () => {
           <td className="field">Role</td>
           <td className="value">
             <div className="m-b-5">
-              <b>All Rounder</b>
+              <b>{role}</b>
             </div>
             <div>
-              <span className="text-muted">Left Hand Batsman</span>
+              <span className="text-muted">{batting} Batsman</span>
               <br />
-              <span className="text-muted">Right Hand Bowler</span>
+              <span className="text-muted">{bowling} Bowler</span>
             </div>
           </td>
         </tr>

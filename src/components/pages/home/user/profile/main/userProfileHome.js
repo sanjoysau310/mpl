@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./userProfile.css";
 import { UserProfilePic } from "../pic/userProfilePic";
 import { UserProfileOverview } from "../overview/userProfileOverview";
-import { UserProfileEdit } from "../edit/userProfileEdit";
 import { UserProfileSettings } from "../settings/userProfileSettings";
 import { UserProfileChangePassword } from "../settings/userProfileChangePassword";
 import { Tab, Tabs } from "react-bootstrap";
@@ -17,6 +16,7 @@ import { useFirebase } from "../../../../../../hooks/firebase/useFirebase";
 import { setProfile } from "../../../../../../store/slices/userSlice";
 import { Loading } from "../../../../../layouts/loading";
 import { UserPOA } from "../poa/userPOA";
+import { UserProfileEdit } from "../edit-old/userProfileEdit";
 
 export const UserProfileHome = () => {
   let params = useParams();

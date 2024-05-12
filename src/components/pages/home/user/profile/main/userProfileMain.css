@@ -124,9 +124,12 @@ body .fc-icon {
     margin: 0;
 }
 
-.profile-header .profile-header-tab>li>a {
+i {
+    cursor: pointer;
+}
+
+.profile-header .profile-header-tab>li>i {
     display: block;
-    color: #000;
     line-height: 1.25rem;
     padding: 0.625rem 1.25rem;
     text-decoration: none;
@@ -135,9 +138,8 @@ body .fc-icon {
     border: none;
 }
 
-.profile-header .profile-header-tab>li.active>a,
-.profile-header .profile-header-tab>li>a.active {
-    color: #007aff;
+.current-tab {
+    color: #f82249;
 }
 
 .profile-header .profile-header-content:after,
@@ -170,6 +172,30 @@ body .fc-widget-header a {
     -moz-border-radius: 0.25rem;
     border-radius: 0.25rem;
     background: #fff;
+
+}
+
+.profile-img {
+    float: left;
+    width: 7.5rem;
+    height: 7.5rem;
+    overflow: hidden;
+    z-index: 10;
+    margin: 0 1.25rem -1.25rem 0;
+    padding: 0.1875rem;
+    -webkit-border-radius: 0.25rem;
+    -moz-border-radius: 0.25rem;
+    border-radius: 0.25rem;
+    background: #fff;
+
+}
+
+.profile-img-upload {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 45%;
+    color: #f82249;
+    cursor: pointer;
 }
 
 .profile-header-info h4 {
@@ -182,9 +208,16 @@ body .fc-widget-header a {
 }
 
 @media (max-width: 967px) {
+
     .profile-header-img {
-        width: 5.625rem;
-        height: 5.625rem;
+        width: 6.75rem;
+        height: 6.75rem;
+        margin: 0;
+    }
+
+    .profile-img {
+        width: 4.75rem;
+        height: 4.75rem;
         margin: 0;
     }
 
@@ -204,13 +237,23 @@ body .fc-widget-header a {
     }
 
     .profile-header-img {
-        width: 3.75rem;
-        height: 3.75rem;
+        width: 6.75rem;
+        height: 7.75rem;
         margin: 0;
     }
 
+    .profile-img {
+        width: 6.3rem;
+        height: 5.75rem;
+        margin: 0;
+    }
+
+    .profile-img-upload {
+        margin-left: 40%;
+    }
+
     .profile-header-info {
-        margin-left: 4.6875rem;
+        margin-left: 7.6875rem;
         padding-bottom: 0.9375rem;
     }
 

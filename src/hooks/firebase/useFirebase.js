@@ -72,6 +72,7 @@ export const useFirebase = () => {
       imageURL: "",
       poaURL: "",
       played: "",
+      dob: "",
     });
   };
 

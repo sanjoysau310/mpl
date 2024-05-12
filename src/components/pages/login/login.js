@@ -46,7 +46,7 @@ export const Login = () => {
       firebase.getUserByIDFromDB(res.user.uid).then((res) => {
         console.log(res.val());
         const { role, fid } = res.val();
-        navigate(`/playerHome/${fid}`);
+        navigate(`/userHome/${fid}`);
       });
     });
 

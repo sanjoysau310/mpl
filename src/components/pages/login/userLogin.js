@@ -23,7 +23,7 @@ export const UserLogin = () => {
   useEffect(() => {
     if (auth != "") {
       if (auth.accessType === "user")
-        navigate(`/playerHome/${user.fid}`, { replace: true });
+        navigate(`/userHome/${user.fid}`, { replace: true });
     } else if (auth.accessType === "admin")
       navigate("/admin", { replace: true });
     else navigate("/login", { replace: true });
